@@ -6,9 +6,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FeedbackDialogComponent } from './feedback-dialog/feedback-dialog.component';
 import { FeedbackToolbarComponent } from './feedback-toolbar/feedback-toolbar.component';
-import { MdDialogModule, MdButtonModule, MdIconModule, MdInputModule, MdTooltipModule, MdCheckboxModule, MdProgressSpinnerModule } from '@angular/material';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { MaterialModule } from '@angular/material';
+import {
+  MdDialogModule,
+  MdButtonModule,
+  MdIconModule,
+  MdInputModule,
+  MdTooltipModule,
+  MdCheckboxModule,
+  MdProgressSpinnerModule } from '@angular/material';
 import { FeedbackService } from './feedback.service';
 import { FeedbackDirective } from './feedback.directive';
 
@@ -19,8 +24,6 @@ import { FeedbackDirective } from './feedback.directive';
     FeedbackDirective
   ],
   imports: [
-    MaterialModule,
-    BrowserAnimationsModule,
     MdDialogModule,
     MdButtonModule,
     MdIconModule,

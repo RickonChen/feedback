@@ -16,7 +16,7 @@ export class FeedbackToolbarComponent implements AfterViewInit {
   private toggleMoveBtn: ElementRef;
   constructor(public el: ElementRef) {}
   public ngAfterViewInit() {
-    let elStyle = this.el.nativeElement.style;
+    const elStyle = this.el.nativeElement.style;
     elStyle.position = 'absolute';
     elStyle.left = '43%';
     elStyle.top = '60%';
@@ -32,12 +32,12 @@ export class FeedbackToolbarComponent implements AfterViewInit {
     this.manipulate.emit('black');
   }
   public addDragListenerOnMoveBtn() {
-    let mouseUp = Observable.fromEvent(this.toggleMoveBtn.nativeElement, 'mouseup');
-    let mouseMove = Observable.fromEvent(document.documentElement, 'mousemove');
-    let mouseDown = Observable.fromEvent(this.toggleMoveBtn.nativeElement, 'mousedown');
-    let mouseDrag = mouseDown.mergeMap((md: MouseEvent) => {
-      let startX = md.offsetX;
-      let startY = md.offsetY;
+    const mouseUp = Observable.fromEvent(this.toggleMoveBtn.nativeElement, 'mouseup');
+    const mouseMove = Observable.fromEvent(document.documentElement, 'mousemove');
+    const mouseDown = Observable.fromEvent(this.toggleMoveBtn.nativeElement, 'mousedown');
+    const mouseDrag = mouseDown.mergeMap((md: MouseEvent) => {
+      const startX = md.offsetX;
+      const startY = md.offsetY;
       this.disableToolbarTips = true;
       // Calculate dif with mousemove until mouseup
       return mouseMove

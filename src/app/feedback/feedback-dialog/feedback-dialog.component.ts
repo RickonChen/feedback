@@ -26,8 +26,8 @@ export class FeedbackDialogComponent implements AfterViewInit {
   @ViewChild('screenshotParent')
   public screenshotParent: ElementRef;
   private rectangles = [];
-  private scrollWidth = document.documentElement.scrollWidth;
-  private scrollHeight = document.documentElement.scrollHeight;
+  private scrollWidth = window.innerWidth || document.body.clientWidth;
+  private scrollHeight = window.innerHeight || document.body.clientHeight;
   private drawColor = 'yellow';
 
   constructor(public dialogRef: MdDialogRef<FeedbackDialogComponent>,
@@ -118,26 +118,23 @@ export class FeedbackDialogComponent implements AfterViewInit {
     style.top = '0';
     style.left = '0';
     style.zIndex = '-1';
+    canvas.height = this.scrollHeight;
+    canvas.width = this.scrollWidth;
   }
   private initBackgroundCanvas() {
     const pageCanvas = this.screenshotCanvas;
     this.initCanvasStyle(pageCanvas);
-    pageCanvas.style.height = this.scrollHeight;
-    pageCanvas.style.width = this.scrollWidth;
     this.drawCanvas = document.createElement('canvas');
     this.drawCanvas.style.cursor = 'crosshair';
     this.initCanvasStyle(this.drawCanvas);
-    // The canvas to draw, must use this way to initial the height and width
-    this.drawCanvas.height = document.documentElement.scrollHeight;
-    this.drawCanvas.width = document.documentElement.scrollWidth;
     this.drawContainerRec();
     this.addDragListenerOnCanvas();
   }
   private drawContainerRec() {
     const drawContext = this.drawCanvas.getContext('2d');
     drawContext.beginPath();
-    const width = document.documentElement.scrollWidth;
-    const height = document.documentElement.scrollHeight;
+    const width = this.scrollWidth;
+    const height = this.scrollHeight;
     drawContext.fillStyle = 'rgba(0,0,0,0.3)';
     drawContext.fillRect(0, 0, width, height); // draw the rectangle
   }
