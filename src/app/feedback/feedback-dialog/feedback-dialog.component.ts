@@ -9,7 +9,7 @@ import { Rectangle } from '../entity/rectangle';
 @Component({
   selector: 'feedback-dialog',
   templateUrl: './feedback-dialog.component.html',
-  styleUrls: ['./feedback-dialog.component.scss']
+  styleUrls: ['./feedback-dialog.component.css']
 })
 
 export class FeedbackDialogComponent implements AfterViewInit {
@@ -26,8 +26,8 @@ export class FeedbackDialogComponent implements AfterViewInit {
   @ViewChild('screenshotParent')
   public screenshotParent: ElementRef;
   private rectangles = [];
-  private scrollWidth = window.innerWidth || document.body.clientWidth;
-  private scrollHeight = window.innerHeight || document.body.clientHeight;
+  private scrollWidth = document.documentElement.scrollWidth;
+  private scrollHeight = document.documentElement.scrollHeight;
   private drawColor = 'yellow';
 
   constructor(public dialogRef: MdDialogRef<FeedbackDialogComponent>,
@@ -87,8 +87,8 @@ export class FeedbackDialogComponent implements AfterViewInit {
     this.showToolbar = false;
     this.detector.detectChanges();
     this.appendScreenshot();
-    const mergedCanvas = document.createElement('canvas');
-    const ctx = mergedCanvas.getContext('2d');
+    let mergedCanvas = document.createElement('canvas');
+    let ctx = mergedCanvas.getContext('2d');
     ctx.drawImage(this.screenshotCanvas, 0, 0);
     ctx.drawImage(this.drawCanvas, 0, 0);
     this.feedback.screenshot = mergedCanvas.toDataURL('image/png');
@@ -113,28 +113,31 @@ export class FeedbackDialogComponent implements AfterViewInit {
     this.screenshotParent.nativeElement.appendChild(this.screenshotEle);
   }
   private initCanvasStyle(canvas) {
-    const style = canvas.style;
+    let style = canvas.style;
     style.position = 'absolute';
     style.top = '0';
     style.left = '0';
     style.zIndex = '-1';
-    canvas.height = this.scrollHeight;
-    canvas.width = this.scrollWidth;
   }
   private initBackgroundCanvas() {
-    const pageCanvas = this.screenshotCanvas;
+    let pageCanvas = this.screenshotCanvas;
     this.initCanvasStyle(pageCanvas);
+    pageCanvas.style.height = this.scrollHeight;
+    pageCanvas.style.width = this.scrollWidth;
     this.drawCanvas = document.createElement('canvas');
     this.drawCanvas.style.cursor = 'crosshair';
     this.initCanvasStyle(this.drawCanvas);
+    // The canvas to draw, must use this way to initial the height and width
+    this.drawCanvas.height = document.documentElement.scrollHeight;
+    this.drawCanvas.width = document.documentElement.scrollWidth;
     this.drawContainerRec();
     this.addDragListenerOnCanvas();
   }
   private drawContainerRec() {
-    const drawContext = this.drawCanvas.getContext('2d');
+    let drawContext = this.drawCanvas.getContext('2d');
     drawContext.beginPath();
-    const width = this.scrollWidth;
-    const height = this.scrollHeight;
+    let width = document.documentElement.scrollWidth;
+    let height = document.documentElement.scrollHeight;
     drawContext.fillStyle = 'rgba(0,0,0,0.3)';
     drawContext.fillRect(0, 0, width, height); // draw the rectangle
   }
@@ -151,15 +154,15 @@ export class FeedbackDialogComponent implements AfterViewInit {
     context.stroke();
   }
   private addDragListenerOnCanvas() {
-    const context = this.drawCanvas.getContext('2d');
-    const mouseUp = Observable.fromEvent(this.drawCanvas, 'mouseup');
-    const mouseMove = Observable.fromEvent(this.drawCanvas, 'mousemove');
-    const mouseDown = Observable.fromEvent(this.drawCanvas, 'mousedown');
-    const mouseDrag = mouseDown.mergeMap( (mouseDownEvent: MouseEvent) => {
+    let context = this.drawCanvas.getContext('2d');
+    let mouseUp = Observable.fromEvent(this.drawCanvas, 'mouseup');
+    let mouseMove = Observable.fromEvent(this.drawCanvas, 'mousemove');
+    let mouseDown = Observable.fromEvent(this.drawCanvas, 'mousedown');
+    let mouseDrag = mouseDown.mergeMap( (mouseDownEvent: MouseEvent) => {
       if (this.showToolbarTips) {
         this.showToolbarTips = false;
       }
-      const newRectangle = new Rectangle();
+      let newRectangle = new Rectangle();
       newRectangle.startX = mouseDownEvent.offsetX;
       newRectangle.startY = mouseDownEvent.offsetY;
       newRectangle.color = this.drawColor;

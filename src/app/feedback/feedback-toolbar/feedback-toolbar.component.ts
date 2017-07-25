@@ -5,7 +5,7 @@ import 'rxjs/add/operator/mergeMap';
 @Component({
   selector: 'feedback-toolbar',
   templateUrl: './feedback-toolbar.component.html',
-  styleUrls: ['./feedback-toolbar.component.scss']
+  styleUrls: ['./feedback-toolbar.component.css']
 })
 
 export class FeedbackToolbarComponent implements AfterViewInit {
