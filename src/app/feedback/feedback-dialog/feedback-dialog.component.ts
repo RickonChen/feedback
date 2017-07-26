@@ -25,9 +25,9 @@ export class FeedbackDialogComponent implements AfterViewInit {
   public showToolbarTips = true;
   @ViewChild('screenshotParent')
   public screenshotParent: ElementRef;
-  private rectangles = [];
-  private scrollWidth = document.documentElement.scrollWidth;
-  private scrollHeight = document.documentElement.scrollHeight;
+  private rectangles: any[] = [];
+  private scrollWidth = window.innerWidth || document.body.clientWidth;
+  private scrollHeight = window.innerHeight || document.body.clientHeight;
   private drawColor = 'yellow';
 
   constructor(public dialogRef: MdDialogRef<FeedbackDialogComponent>,
@@ -74,7 +74,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
     this.detector.detectChanges();
     this.dialogRef.close('key down esc to close');
   }
-  public manipulate(manipulation) {
+  public manipulate(manipulation: string) {
     if (manipulation === 'done') {
       this.mergeCanvas();
       this.el.nativeElement.removeChild(this.screenshotCanvas);
@@ -89,6 +89,9 @@ export class FeedbackDialogComponent implements AfterViewInit {
     this.appendScreenshot();
     let mergedCanvas = document.createElement('canvas');
     let ctx = mergedCanvas.getContext('2d');
+    if (ctx === null) {
+      return;
+    }
     ctx.drawImage(this.screenshotCanvas, 0, 0);
     ctx.drawImage(this.drawCanvas, 0, 0);
     this.feedback.screenshot = mergedCanvas.toDataURL('image/png');
@@ -97,7 +100,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
     ctx.drawImage(this.drawCanvas, 0, 0, 360, 200);
     this.feedbackService.setCanvas(mergedCanvas);
   }
-  public startDraw(color) {
+  public startDraw(color: string) {
     this.drawColor = color;
   }
   private isIncludeScreenshot() {
@@ -112,7 +115,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
   private appendScreenshot() {
     this.screenshotParent.nativeElement.appendChild(this.screenshotEle);
   }
-  private initCanvasStyle(canvas) {
+  private initCanvasStyle(canvas: HTMLElement) {
     let style = canvas.style;
     style.position = 'absolute';
     style.top = '0';
@@ -128,20 +131,20 @@ export class FeedbackDialogComponent implements AfterViewInit {
     this.drawCanvas.style.cursor = 'crosshair';
     this.initCanvasStyle(this.drawCanvas);
     // The canvas to draw, must use this way to initial the height and width
-    this.drawCanvas.height = document.documentElement.scrollHeight;
-    this.drawCanvas.width = document.documentElement.scrollWidth;
+    this.drawCanvas.height = this.scrollHeight;
+    this.drawCanvas.width = this.scrollWidth;
     this.drawContainerRec();
     this.addDragListenerOnCanvas();
   }
   private drawContainerRec() {
     let drawContext = this.drawCanvas.getContext('2d');
     drawContext.beginPath();
-    let width = document.documentElement.scrollWidth;
-    let height = document.documentElement.scrollHeight;
+    let width = this.scrollWidth;
+    let height = this.scrollHeight;
     drawContext.fillStyle = 'rgba(0,0,0,0.3)';
     drawContext.fillRect(0, 0, width, height); // draw the rectangle
   }
-  private drawRectangle(context, rec: Rectangle) {
+  private drawRectangle(context: CanvasRenderingContext2D, rec: Rectangle) {
     context.clearRect(rec.startX, rec.startY, rec.width, rec.height);
     context.beginPath();
     if (rec.color === 'black') {

@@ -107,12 +107,12 @@
       "check-separator",
       "check-type"
     ],
-    "directive-selector": [
-      true,
-      "attribute",
-      "app",
-      "camelCase"
-    ],
+//    "directive-selector": [
+//      true,
+//      "attribute",
+//      "app",
+//      "camelCase"
+//    ],
 //    "component-selector": [
 //      true,
 //      "element",
