@@ -5,7 +5,41 @@
 ## Demo
 ![Alt text](/../screenshots/feedback.gif?raw=true "overview")
 
-### Quick start
+### How to use it in your project
+> npm install ng-feedback --save
+
+```bash
+# make sure your project have use the angular material and import the BrowserAnimationsModule
+
+# use the feedback module in your project, at any module, you just need to:
+```es6
+import { FeedbackModule } from 'ng-feedback'
+...
+imports: [
+    FeedbackModule
+],
+...
+```
+
+# then you can use the directive in your module, just add a direct in a tag, such as:
+<button feedback>send feedback</button>
+
+```
+
+### options
+
+```bash
+* onSend(feedback)
+#it is an output of the directive, the usage is:
+<button 
+  feedback 
+  (onSend)="onSend($event)">feedback
+</button>
+#The param feedback is an object contains two properties: description and screenshot
+
+```
+
+### if you want to modify this repo
 **Make sure you have Node version >= 6.0 and NPM >= 3**
 > Clone/Download the repo then edit feedback module inside [`/src/app/feedback`](/src/app/feedback)
 
