@@ -1,7 +1,6 @@
 # feedback
 
-> An angular directive for sending feedback featuring [Angular 4](https://angular.io), [Html2canvas](html2canvas.hertzen.com), inspired by Google send feedback.
-Base on [angular-cli](https://github.com/angular/angular-cli).
+> An angular directive for sending feedback featuring [Angular 4](https://angular.io), [Html2canvas](html2canvas.hertzen.com), [Angular Material](https://material.angular.io) inspired by Google send feedback, based on [angular-cli](https://github.com/angular/angular-cli).
 
 ## Demo
 ![Alt text](/../screenshots/feedback.gif?raw=true "overview")
