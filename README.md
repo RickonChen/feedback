@@ -25,4 +25,4 @@ npm start
 # if you're in China use cnpm
 # https://github.com/cnpm/cnpm
 ```
-go to [http://0.0.0.0:4200](http://0.0.0.0:4200) or [http://localhost:4200](http://localhost:4200) in your browser
+go to [http://127.0.0.1:4200](http://127.0.0.1:4200) or [http://localhost:4200](http://localhost:4200) in your browser
