@@ -5,41 +5,49 @@
 ## Demo
 ![Alt text](/../screenshots/feedback.gif?raw=true "overview")
 
+
+### Prerequisites
+make sure your project:
+* is an angular(version >= 4.0.0) project
+* have set up [angular material](https://github.com/angular/material2/blob/master/guides/getting-started.md)
+
 ### How to use it in your project
-> npm install ng-feedback --save
+> download it from npm
 
 ```bash
-# make sure your project have use the angular material and import the BrowserAnimationsModule
-
-# use the feedback module in your project, at any module, you just need to:
-```es6
-import { FeedbackModule } from 'ng-feedback'
-...
-imports: [
-    FeedbackModule
-],
-...
+npm install ng-feedback --save
 ```
 
-# then you can use the directive in your module, just add a direct in a tag, such as:
-<button feedback>send feedback</button>
+use the feedback module in your project, at any module, you just need to imports into your module:
+```es6
+import { FeedbackModule } from 'ng-feedback'
+```
 
+easy to use the directive, just add it in a html tag, such as:
+```
+<button feedback>feedback</button>
 ```
 
 ### options
 
-```bash
-* onSend(feedback)
-#it is an output of the directive, the usage is:
+```
+onSend(feedback)
+```
+
+it is an output of the directive, the usage is:
+
+```
 <button 
   feedback 
   (onSend)="onSend($event)">feedback
 </button>
-#The param feedback is an object contains two properties: description and screenshot
-
 ```
+Then you can custom the onSend method in your component.
+The param feedback is an object contains two properties: description and screenshot.
+* description is string to describe issues or ideas
+* screenshot comes from HTMLCanvasElement.toDataURL('image/png'), can be used as src of an img tag.
 
-### if you want to modify this repo
+### Getting started with this repo
 **Make sure you have Node version >= 6.0 and NPM >= 3**
 > Clone/Download the repo then edit feedback module inside [`/src/app/feedback`](/src/app/feedback)
 
