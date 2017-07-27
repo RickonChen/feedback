@@ -37,7 +37,6 @@
   left: 0px;
   position: absolute;
   top: 0px;
-  visibility: hidden;
 }
 .highlight-toggle{
   align-items: center;
@@ -54,12 +53,10 @@
   height: 56px;
   width: 56px;
 }
-.highlight-toggle:focus{
-  background-color: rgb(224, 224, 224);
+.deepen-color{
+  background-color: rgb(224, 224, 224)!important;
 }
-.highlight-toggle:focus .toggle-decorator{
-  visibility: visible;
-}
+
 .hide-toggle{
   align-items: center;
   background-color: rgb(255, 255, 255);
@@ -74,12 +71,6 @@
   position: relative;
   height: 56px;
   width: 56px;
-}
-.hide-toggle:focus{
-  background-color: rgb(224, 224, 224);
-}
-.hide-toggle:focus .toggle-decorator{
-  visibility: visible;
 }
 .merge-button{
   padding:0!important;

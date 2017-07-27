@@ -25,10 +25,10 @@ export class FeedbackDialogComponent implements AfterViewInit {
   public showToolbarTips = true;
   @ViewChild('screenshotParent')
   public screenshotParent: ElementRef;
+  public drawColor = 'yellow';
   private rectangles: any[] = [];
   private scrollWidth = window.innerWidth || document.body.clientWidth;
   private scrollHeight = window.innerHeight || document.body.clientHeight;
-  private drawColor = 'yellow';
 
   constructor(public dialogRef: MdDialogRef<FeedbackDialogComponent>,
               private feedbackService: FeedbackService,

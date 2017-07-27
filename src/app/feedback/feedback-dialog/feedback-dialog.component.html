@@ -39,7 +39,7 @@
     Draw using yellow to highlight issues or black to hide sensitive info
   </div>
 
-  <feedback-toolbar (manipulate)="manipulate($event)"></feedback-toolbar>
+  <feedback-toolbar [drawColor]="drawColor" (manipulate)="manipulate($event)"></feedback-toolbar>
 </div>
 
 
