@@ -1,5 +1,5 @@
 import { Directive, HostListener, EventEmitter, Output } from '@angular/core';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { FeedbackDialogComponent } from './feedback-dialog/feedback-dialog.component';
 import { FeedbackService } from './feedback.service';
 
@@ -7,7 +7,7 @@ import { FeedbackService } from './feedback.service';
 export class FeedbackDirective {
   @Output()
   public onSend = new EventEmitter<object>();
-  public constructor(private dialogRef: MdDialog, private feedbackService: FeedbackService ) {
+  public constructor(private dialogRef: MatDialog, private feedbackService: FeedbackService ) {
     this.feedbackService.feedback$.subscribe(
       (feedback) => {
         this.onSend.emit(feedback);

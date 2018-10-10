@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, HostListener, Output, EventEmitter } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 import { Feedback } from '../entity/feedback';
 import { FeedbackService } from '../feedback.service';
 import { Observable } from 'rxjs/Rx';
@@ -30,7 +30,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
   private scrollWidth = window.innerWidth || document.body.clientWidth;
   private scrollHeight = window.innerHeight || document.body.clientHeight;
 
-  constructor(public dialogRef: MdDialogRef<FeedbackDialogComponent>,
+  constructor(public dialogRef: MatDialogRef<FeedbackDialogComponent>,
               private feedbackService: FeedbackService,
               private detector: ChangeDetectorRef,
               private el: ElementRef) {

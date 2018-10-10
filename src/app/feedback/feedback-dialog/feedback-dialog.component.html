@@ -15,11 +15,11 @@
     ></textarea>
   </div>
   <div class="screenshot-checkbox">
-    <md-checkbox [(ngModel)]="includeScreenshot" (change)="isIncludeScreenshot()">Include screenshot</md-checkbox>
+    <mat-checkbox [(ngModel)]="includeScreenshot" (change)="isIncludeScreenshot()">Include screenshot</mat-checkbox>
   </div>
 
   <button #screenshotParent class="screenshot-content" (click)="expandDrawingBoard()" *ngIf="includeScreenshot">
-    <md-spinner class="loading" *ngIf="showSpinner"></md-spinner>
+    <mat-spinner class="loading" *ngIf="showSpinner"></mat-spinner>
     <div class="screenshot-tips" *ngIf="!showSpinner">
       <svg focusable="false" aria-label="" viewBox="0 0 24 24">
         <path
@@ -29,10 +29,10 @@
     </div>
   </button>
 
-  <md-dialog-actions class="dialog-actions">
-    <button md-button (click)="dialogRef.close()" class="action-button">CANCEL</button>
-    <button md-button (click)="dialogRef.close(true)" class="submit-button action-button">SEND</button>
-  </md-dialog-actions>
+  <mat-dialog-actions class="dialog-actions">
+    <button mat-button (click)="dialogRef.close()" class="action-button">CANCEL</button>
+    <button mat-button (click)="dialogRef.close(true)" class="submit-button action-button">SEND</button>
+  </mat-dialog-actions>
 </div>
 <div *ngIf="showToolbar">
   <div class="toolbar-tips" *ngIf="showToolbarTips">

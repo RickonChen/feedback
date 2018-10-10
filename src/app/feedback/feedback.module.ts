@@ -7,13 +7,14 @@ import { FormsModule } from '@angular/forms';
 import { FeedbackDialogComponent } from './feedback-dialog/feedback-dialog.component';
 import { FeedbackToolbarComponent } from './feedback-toolbar/feedback-toolbar.component';
 import {
-  MdDialogModule,
-  MdButtonModule,
-  MdIconModule,
-  MdInputModule,
-  MdTooltipModule,
-  MdCheckboxModule,
-  MdProgressSpinnerModule } from '@angular/material';
+  MatDialogModule,
+  MatButtonModule,
+  MatIconModule,
+  MatInputModule,
+  MatTooltipModule,
+  MatCheckboxModule,
+  MatProgressSpinnerModule
+} from '@angular/material';
 import { FeedbackService } from './feedback.service';
 import { FeedbackDirective } from './feedback.directive';
 
@@ -24,15 +25,15 @@ import { FeedbackDirective } from './feedback.directive';
     FeedbackDirective
   ],
   imports: [
-    MdDialogModule,
-    MdButtonModule,
-    MdIconModule,
-    MdInputModule,
-    MdTooltipModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    MatTooltipModule,
     CommonModule,
     FormsModule,
-    MdCheckboxModule,
-    MdProgressSpinnerModule
+    MatCheckboxModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     FeedbackDirective
