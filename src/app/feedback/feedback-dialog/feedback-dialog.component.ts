@@ -1,9 +1,12 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, HostListener, Output, EventEmitter } from '@angular/core';
+
+import {fromEvent as observableFromEvent} from 'rxjs';
+
+import {takeUntil, finalize, map, mergeMap} from 'rxjs/operators';
+import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, HostListener } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { Feedback } from '../entity/feedback';
 import { FeedbackService } from '../feedback.service';
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/mergeMap';
+
 import { Rectangle } from '../entity/rectangle';
 
 @Component({
@@ -88,13 +91,21 @@ export class FeedbackDialogComponent implements AfterViewInit {
     this.detector.detectChanges();
     this.appendScreenshot();
     let mergedCanvas = document.createElement('canvas');
+    let x;
+    let y;
     let ctx = mergedCanvas.getContext('2d');
     if (ctx === null) {
       return;
     }
+    x = mergedCanvas.width;
+    y = mergedCanvas.height;
+    mergedCanvas.width = this.screenshotCanvas.width;
+    mergedCanvas.height = this.screenshotCanvas.height;
     ctx.drawImage(this.screenshotCanvas, 0, 0);
     ctx.drawImage(this.drawCanvas, 0, 0);
     this.feedback.screenshot = mergedCanvas.toDataURL('image/png');
+    mergedCanvas.width = x;
+    mergedCanvas.height = y;
     ctx.clearRect(0, 0, mergedCanvas.width, mergedCanvas.height);
     ctx.drawImage(this.screenshotCanvas, 0, 0, 360, 200);
     ctx.drawImage(this.drawCanvas, 0, 0, 360, 200);
@@ -158,10 +169,10 @@ export class FeedbackDialogComponent implements AfterViewInit {
   }
   private addDragListenerOnCanvas() {
     let context = this.drawCanvas.getContext('2d');
-    let mouseUp = Observable.fromEvent(this.drawCanvas, 'mouseup');
-    let mouseMove = Observable.fromEvent(this.drawCanvas, 'mousemove');
-    let mouseDown = Observable.fromEvent(this.drawCanvas, 'mousedown');
-    let mouseDrag = mouseDown.mergeMap( (mouseDownEvent: MouseEvent) => {
+    let mouseUp = observableFromEvent(this.drawCanvas, 'mouseup');
+    let mouseMove = observableFromEvent(this.drawCanvas, 'mousemove');
+    let mouseDown = observableFromEvent(this.drawCanvas, 'mousedown');
+    let mouseDrag = mouseDown.pipe(mergeMap( (mouseDownEvent: MouseEvent) => {
       if (this.showToolbarTips) {
         this.showToolbarTips = false;
       }
@@ -169,17 +180,17 @@ export class FeedbackDialogComponent implements AfterViewInit {
       newRectangle.startX = mouseDownEvent.offsetX;
       newRectangle.startY = mouseDownEvent.offsetY;
       newRectangle.color = this.drawColor;
-      return mouseMove
-        .map((mouseMoveEvent: MouseEvent) => {
+      return mouseMove.pipe(
+        map((mouseMoveEvent: MouseEvent) => {
           newRectangle.width = mouseMoveEvent.clientX - mouseDownEvent.clientX;
           newRectangle.height = mouseMoveEvent.clientY - mouseDownEvent.clientY;
           return newRectangle;
-        })
-        .finally(() => {
+        }),
+        finalize(() => {
           this.rectangles.push(newRectangle);
-        })
-        .takeUntil(mouseUp);
-    });
+        }),
+        takeUntil(mouseUp));
+    }));
     mouseDrag.subscribe(
       (rec) => {
         context.clearRect(0, 0, this.drawCanvas.width, this.drawCanvas.height);

@@ -1,6 +1,9 @@
+
+import {fromEvent as observableFromEvent } from 'rxjs';
+
+import {takeUntil, finalize, map, mergeMap} from 'rxjs/operators';
 import { Component, ElementRef, Input, Output, EventEmitter, AfterViewInit, ViewChild, OnChanges } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/mergeMap';
+
 
 @Component({
   selector: 'feedback-toolbar',
@@ -40,26 +43,27 @@ export class FeedbackToolbarComponent implements AfterViewInit, OnChanges {
     this.manipulate.emit('black');
   }
   public addDragListenerOnMoveBtn() {
-    const mouseUp = Observable.fromEvent(this.toggleMoveBtn.nativeElement, 'mouseup');
-    const mouseMove = Observable.fromEvent(document.documentElement, 'mousemove');
-    const mouseDown = Observable.fromEvent(this.toggleMoveBtn.nativeElement, 'mousedown');
-    const mouseDrag = mouseDown.mergeMap((md: MouseEvent) => {
+    const mouseUp = observableFromEvent(this.toggleMoveBtn.nativeElement, 'mouseup');
+    const mouseMove = observableFromEvent(document.documentElement, 'mousemove');
+    const mouseDown = observableFromEvent(this.toggleMoveBtn.nativeElement, 'mousedown');
+    const mouseDrag = mouseDown.pipe(mergeMap((md: MouseEvent) => {
       const startX = md.offsetX;
       const startY = md.offsetY;
       this.disableToolbarTips = true;
       // Calculate dif with mousemove until mouseup
-      return mouseMove
-        .map((mm: MouseEvent) => {
+      return mouseMove.pipe(
+        map((mm: MouseEvent) => {
           mm.preventDefault();
           return {
             left: mm.clientX - startX,
             top: mm.clientY - startY
           };
-        })
-        .finally(() => {
+        }),
+        finalize(() => {
           this.disableToolbarTips = false;
-        }).takeUntil(mouseUp);
-    });
+        }),
+        takeUntil(mouseUp));
+    }));
     mouseDrag.subscribe(
       (pos) => {
         this.el.nativeElement.style.left = pos.left + 'px';

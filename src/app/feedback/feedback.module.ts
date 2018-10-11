@@ -13,8 +13,7 @@ import {
   MatInputModule,
   MatTooltipModule,
   MatCheckboxModule,
-  MatProgressSpinnerModule
-} from '@angular/material';
+  MatProgressSpinnerModule } from '@angular/material';
 import { FeedbackService } from './feedback.service';
 import { FeedbackDirective } from './feedback.directive';
 

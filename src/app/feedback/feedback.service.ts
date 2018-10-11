@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import html2canvas from 'html2canvas';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 @Injectable()
 export class FeedbackService {
   private screenshotCanvasSource = new Subject<any>();
@@ -9,11 +9,7 @@ export class FeedbackService {
   public feedback$ = this.feedbackSource.asObservable();
 
   public initScreenshotCanvas(wholehtml) {
-    html2canvas(wholehtml, {
-      onrendered: (canvas) => {
-        this.screenshotCanvasSource.next(canvas);
-      }
-    });
+    html2canvas(wholehtml).then(canvas => { this.screenshotCanvasSource.next(canvas); });
   }
 
   public setCanvas(canvas) {
