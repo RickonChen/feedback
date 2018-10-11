@@ -48,7 +48,7 @@ The param feedback is an object contains two properties: description and screens
 * screenshot comes from HTMLCanvasElement.toDataURL('image/png'), can be used as src of an img tag.
 
 ### Getting started with this repo
-**Make sure you have Node version >= 6.0 and NPM >= 3**
+**Make sure you have Node version >= 8.0 and NPM >= 3**
 > Clone/Download the repo then edit feedback module inside [`/src/app/feedback`](/src/app/feedback)
 
 ```bash
