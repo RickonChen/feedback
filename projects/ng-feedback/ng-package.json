@@ -6,5 +6,8 @@
     "umdModuleIds": {
       "html2canvas": "html2canvas"
     }
-  }
+  },
+  "whitelistedNonPeerDependencies": [
+    "html2canvas"
+  ]
 }

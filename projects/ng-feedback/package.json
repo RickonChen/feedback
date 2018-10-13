@@ -1,6 +1,6 @@
 {
   "name": "ng-feedback",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "license": "MIT",
   "description": "An angular directive for sending feedback featuring Angular 6, Html2canvas, Angular Material, Rxjs, inspired by Google send feedback, based on angular-cli.",
   "keywords": ["angular6", "rxjs", "html2canvas", "feedback", "directive"],
@@ -11,6 +11,9 @@
   "repository": {
     "type" : "git",
     "url" : "https://github.com/RickonChen/feedback.git"
+  },
+  "dependencies": {
+    "html2canvas": "^1.0.0-alpha.12"
   },
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
