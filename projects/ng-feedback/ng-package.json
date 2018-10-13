@@ -1,0 +1,10 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/ng-feedback",
+  "lib": {
+    "entryFile": "src/public_api.ts",
+    "umdModuleIds": {
+      "html2canvas": "html2canvas"
+    }
+  }
+}

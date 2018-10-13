@@ -1,11 +1,11 @@
 /**
  * Created by chenri4 on 7/13/2017.
  */
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { FeedbackDialogComponent } from './feedback-dialog/feedback-dialog.component';
-import { FeedbackToolbarComponent } from './feedback-toolbar/feedback-toolbar.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {FeedbackDialogComponent} from './feedback-dialog/feedback-dialog.component';
+import {FeedbackToolbarComponent} from './feedback-toolbar/feedback-toolbar.component';
 import {
   MatDialogModule,
   MatButtonModule,
@@ -13,9 +13,10 @@ import {
   MatInputModule,
   MatTooltipModule,
   MatCheckboxModule,
-  MatProgressSpinnerModule } from '@angular/material';
-import { FeedbackService } from './feedback.service';
-import { FeedbackDirective } from './feedback.directive';
+  MatProgressSpinnerModule
+} from '@angular/material';
+import {FeedbackService} from './feedback.service';
+import {FeedbackDirective} from './feedback.directive';
 
 @NgModule({
   declarations: [

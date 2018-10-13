@@ -1,12 +1,11 @@
-
-import {fromEvent as observableFromEvent } from 'rxjs';
+import {fromEvent as observableFromEvent} from 'rxjs';
 
 import {takeUntil, finalize, map, mergeMap} from 'rxjs/operators';
-import { Component, ElementRef, Input, Output, EventEmitter, AfterViewInit, ViewChild, OnChanges } from '@angular/core';
+import {Component, ElementRef, Input, Output, EventEmitter, AfterViewInit, ViewChild, OnChanges} from '@angular/core';
 
 
 @Component({
-  selector: 'feedback-toolbar',
+  selector: 'feedback-toolbar', // tslint:disable-line
   templateUrl: './feedback-toolbar.component.html',
   styleUrls: ['./feedback-toolbar.component.css']
 })
@@ -20,7 +19,10 @@ export class FeedbackToolbarComponent implements AfterViewInit, OnChanges {
   @ViewChild('toggleMove')
   private toggleMoveBtn: ElementRef;
   public isSwitch = false;
-  constructor(public el: ElementRef) {}
+
+  constructor(public el: ElementRef) {
+  }
+
   public ngAfterViewInit() {
     const elStyle = this.el.nativeElement.style;
     elStyle.position = 'absolute';
@@ -28,20 +30,25 @@ export class FeedbackToolbarComponent implements AfterViewInit, OnChanges {
     elStyle.top = '60%';
     this.addDragListenerOnMoveBtn();
   }
+
   public ngOnChanges() {
     this.isSwitch = this.drawColor !== 'yellow';
   }
+
   public done() {
     this.manipulate.emit('done');
   }
+
   public toggleHighlight() {
     this.isSwitch = false;
     this.manipulate.emit('yellow');
   }
+
   public toggleHide() {
     this.isSwitch = true;
     this.manipulate.emit('black');
   }
+
   public addDragListenerOnMoveBtn() {
     const mouseUp = observableFromEvent(this.toggleMoveBtn.nativeElement, 'mouseup');
     const mouseMove = observableFromEvent(document.documentElement, 'mousemove');

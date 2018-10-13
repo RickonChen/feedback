@@ -10,7 +10,8 @@
       <circle cx="6.5" cy="13.5" r="1.5"></circle>
     </svg>
   </div>
-  <button #highlightBtn (click)="toggleHighlight()" matTooltip="highlight issues" [matTooltipDisabled]="disableToolbarTips" class="highlight-toggle" [ngClass]="{'deepen-color': !isSwitch}">
+  <button #highlightBtn (click)="toggleHighlight()" matTooltip="highlight issues"
+          [matTooltipDisabled]="disableToolbarTips" class="highlight-toggle" [ngClass]="{'deepen-color': !isSwitch}">
     <span class="toggle">
       <svg focusable="false" aria-label="" viewBox="0 0 24 24" height="36" width="36"
            fill="#ffd740">
@@ -24,7 +25,8 @@
       </svg>
     </span>
   </button>
-  <button (click)="toggleHide()" matTooltip="hide sensitive info" [matTooltipDisabled]="disableToolbarTips" class="hide-toggle" [ngClass]="{'deepen-color': isSwitch}">
+  <button (click)="toggleHide()" matTooltip="hide sensitive info" [matTooltipDisabled]="disableToolbarTips"
+          class="hide-toggle" [ngClass]="{'deepen-color': isSwitch}">
     <span class="toggle">
       <svg focusable="false" aria-label="" viewBox="0 0 24 24" height="36" width="36"
            fill="#000">

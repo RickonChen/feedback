@@ -1,16 +1,15 @@
-
 import {fromEvent as observableFromEvent} from 'rxjs';
 
 import {takeUntil, finalize, map, mergeMap} from 'rxjs/operators';
-import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, HostListener } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
-import { Feedback } from '../entity/feedback';
-import { FeedbackService } from '../feedback.service';
+import {Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, HostListener} from '@angular/core';
+import {MatDialogRef} from '@angular/material';
+import {Feedback} from '../entity/feedback';
+import {FeedbackService} from '../feedback.service';
 
-import { Rectangle } from '../entity/rectangle';
+import {Rectangle} from '../entity/rectangle';
 
 @Component({
-  selector: 'feedback-dialog',
+  selector: 'feedback-dialog', // tslint:disable-line
   templateUrl: './feedback-dialog.component.html',
   styleUrls: ['./feedback-dialog.component.css']
 })
@@ -43,6 +42,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
     this.feedback.description = '';
     this.includeScreenshot = true;
   }
+
   public ngAfterViewInit() {
     this.feedbackService.screenshotCanvas$.subscribe(
       (canvas) => {
@@ -61,6 +61,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
       }
     });
   }
+
   public expandDrawingBoard() {
     this.showToolbar = true;
     if (!this.drawCanvas) {
@@ -70,6 +71,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
     this.el.nativeElement.appendChild(this.drawCanvas);
     console.log('expand the board');
   }
+
   @HostListener('document:keydown.escape', ['$event'])
   public onEscapeKeyDownHandler(evt: KeyboardEvent) {
     this.showToolbar = false;
@@ -77,23 +79,24 @@ export class FeedbackDialogComponent implements AfterViewInit {
     this.detector.detectChanges();
     this.dialogRef.close('key down esc to close');
   }
+
   public manipulate(manipulation: string) {
     if (manipulation === 'done') {
       this.mergeCanvas();
       this.el.nativeElement.removeChild(this.screenshotCanvas);
       this.el.nativeElement.removeChild(this.drawCanvas);
-    }else {
+    } else {
       this.startDraw(manipulation);
     }
   }
+
   public mergeCanvas() {
+    const mergedCanvas = document.createElement('canvas'),
+      ctx = mergedCanvas.getContext('2d');
+    let x, y;
     this.showToolbar = false;
     this.detector.detectChanges();
     this.appendScreenshot();
-    let mergedCanvas = document.createElement('canvas');
-    let x;
-    let y;
-    let ctx = mergedCanvas.getContext('2d');
     if (ctx === null) {
       return;
     }
@@ -111,30 +114,35 @@ export class FeedbackDialogComponent implements AfterViewInit {
     ctx.drawImage(this.drawCanvas, 0, 0, 360, 200);
     this.feedbackService.setCanvas(mergedCanvas);
   }
+
   public startDraw(color: string) {
     this.drawColor = color;
   }
-  private isIncludeScreenshot() {
+
+  public isIncludeScreenshot() {
     if (this.includeScreenshot) {
       this.detector.detectChanges();
       this.showSpinner = false;
       this.appendScreenshot();
-    }else {
+    } else {
       this.showSpinner = true;
     }
   }
+
   private appendScreenshot() {
     this.screenshotParent.nativeElement.appendChild(this.screenshotEle);
   }
+
   private initCanvasStyle(canvas: HTMLElement) {
-    let style = canvas.style;
+    const style = canvas.style;
     style.position = 'absolute';
     style.top = '0';
     style.left = '0';
     style.zIndex = '-1';
   }
+
   private initBackgroundCanvas() {
-    let pageCanvas = this.screenshotCanvas;
+    const pageCanvas = this.screenshotCanvas;
     this.initCanvasStyle(pageCanvas);
     pageCanvas.style.height = this.scrollHeight;
     pageCanvas.style.width = this.scrollWidth;
@@ -147,14 +155,16 @@ export class FeedbackDialogComponent implements AfterViewInit {
     this.drawContainerRec();
     this.addDragListenerOnCanvas();
   }
+
   private drawContainerRec() {
-    let drawContext = this.drawCanvas.getContext('2d');
+    const drawContext = this.drawCanvas.getContext('2d'),
+      width = this.scrollWidth,
+      height = this.scrollHeight;
     drawContext.beginPath();
-    let width = this.scrollWidth;
-    let height = this.scrollHeight;
     drawContext.fillStyle = 'rgba(0,0,0,0.3)';
     drawContext.fillRect(0, 0, width, height); // draw the rectangle
   }
+
   private drawRectangle(context: CanvasRenderingContext2D, rec: Rectangle) {
     context.clearRect(rec.startX, rec.startY, rec.width, rec.height);
     context.beginPath();
@@ -167,30 +177,31 @@ export class FeedbackDialogComponent implements AfterViewInit {
     context.lineWidth = 1;
     context.stroke();
   }
+
   private addDragListenerOnCanvas() {
-    let context = this.drawCanvas.getContext('2d');
-    let mouseUp = observableFromEvent(this.drawCanvas, 'mouseup');
-    let mouseMove = observableFromEvent(this.drawCanvas, 'mousemove');
-    let mouseDown = observableFromEvent(this.drawCanvas, 'mousedown');
-    let mouseDrag = mouseDown.pipe(mergeMap( (mouseDownEvent: MouseEvent) => {
-      if (this.showToolbarTips) {
-        this.showToolbarTips = false;
-      }
-      let newRectangle = new Rectangle();
-      newRectangle.startX = mouseDownEvent.offsetX;
-      newRectangle.startY = mouseDownEvent.offsetY;
-      newRectangle.color = this.drawColor;
-      return mouseMove.pipe(
-        map((mouseMoveEvent: MouseEvent) => {
-          newRectangle.width = mouseMoveEvent.clientX - mouseDownEvent.clientX;
-          newRectangle.height = mouseMoveEvent.clientY - mouseDownEvent.clientY;
-          return newRectangle;
-        }),
-        finalize(() => {
-          this.rectangles.push(newRectangle);
-        }),
-        takeUntil(mouseUp));
-    }));
+    const context = this.drawCanvas.getContext('2d'),
+      mouseUp = observableFromEvent(this.drawCanvas, 'mouseup'),
+      mouseMove = observableFromEvent(this.drawCanvas, 'mousemove'),
+      mouseDown = observableFromEvent(this.drawCanvas, 'mousedown'),
+      mouseDrag = mouseDown.pipe(mergeMap((mouseDownEvent: MouseEvent) => {
+        if (this.showToolbarTips) {
+          this.showToolbarTips = false;
+        }
+        const newRectangle = new Rectangle();
+        newRectangle.startX = mouseDownEvent.offsetX;
+        newRectangle.startY = mouseDownEvent.offsetY;
+        newRectangle.color = this.drawColor;
+        return mouseMove.pipe(
+          map((mouseMoveEvent: MouseEvent) => {
+            newRectangle.width = mouseMoveEvent.clientX - mouseDownEvent.clientX;
+            newRectangle.height = mouseMoveEvent.clientY - mouseDownEvent.clientY;
+            return newRectangle;
+          }),
+          finalize(() => {
+            this.rectangles.push(newRectangle);
+          }),
+          takeUntil(mouseUp));
+      }));
     mouseDrag.subscribe(
       (rec) => {
         context.clearRect(0, 0, this.drawCanvas.width, this.drawCanvas.height);

@@ -11,34 +11,39 @@
   pointer-events: auto;
   overflow: visible;
   position: absolute;
-  margin:0 auto;
-  width:228px;
-  bottom:0;
-  top:25%;
-  left:0;
-  right:0;
+  margin: 0 auto;
+  width: 228px;
+  bottom: 0;
+  top: 25%;
+  left: 0;
+  right: 0;
 }
-.move-toolbar{
+
+.move-toolbar {
   cursor: -webkit-grab;
   height: 56px;
   padding: 0px 12px;
   position: relative;
 }
+
 .move-toolbar:active {
   cursor: -webkit-grabbing;
 }
-.toggle{
+
+.toggle {
   display: inline-block;
   position: relative;
   height: 36px;
   width: 36px;
 }
-.toggle-decorator{
+
+.toggle-decorator {
   left: 0px;
   position: absolute;
   top: 0px;
 }
-.highlight-toggle{
+
+.highlight-toggle {
   align-items: center;
   background-color: rgb(255, 255, 255);
   border: none;
@@ -52,12 +57,13 @@
   position: relative;
   height: 56px;
   width: 56px;
-}
-.deepen-color{
-  background-color: rgb(224, 224, 224)!important;
 }
 
-.hide-toggle{
+.deepen-color {
+  background-color: rgb(224, 224, 224) !important;
+}
+
+.hide-toggle {
   align-items: center;
   background-color: rgb(255, 255, 255);
   border: none;
@@ -72,9 +78,10 @@
   height: 56px;
   width: 56px;
 }
-.merge-button{
-  padding:0!important;
+
+.merge-button {
+  padding: 0 !important;
   margin: 0 10px 0 10px !important;
-  min-width:56px;
+  min-width: 56px;
   color: #4285f4;
 }

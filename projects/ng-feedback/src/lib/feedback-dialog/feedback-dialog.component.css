@@ -1,7 +1,8 @@
-.dialog{
-  width:360px;
+.dialog {
+  width: 360px;
   background-color: white;
 }
+
 .dialog-title {
   background-color: rgb(96, 125, 139);
   color: #ffffff;
@@ -69,14 +70,14 @@
 .screenshot-checkbox {
   padding: 0 16px 0 16px;
   background-color: #f8f8f8;
-  height:40px;
+  height: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .screenshot-content {
-  width:360px;
+  width: 360px;
   height: 200px;
   background-color: rgb(222, 222, 222);
   border: none;
@@ -87,7 +88,7 @@
   position: relative;
 }
 
-.screenshot-tips{
+.screenshot-tips {
   align-items: center;
   background-color: rgba(248, 248, 248, 0.6);
   border-radius: 4px;
@@ -100,25 +101,30 @@
   padding: 16px;
   position: relative;
   width: 224px;
-  z-index:5;
+  z-index: 5;
 }
+
 .screenshot-content:hover .screenshot-tips {
   background-color: rgba(248, 248, 248, 0.8);
 }
-.screenshot-content:hover .screenshot-tips-content{
-  color:rgb(66,133,244);
+
+.screenshot-content:hover .screenshot-tips-content {
+  color: rgb(66, 133, 244);
 }
-.screenshot-content:hover svg{
-  color:#4285f4;
+
+.screenshot-content:hover svg {
+  color: #4285f4;
   fill: currentColor;
 }
-.screenshot-tips svg{
+
+.screenshot-tips svg {
   color: #757575;
-  fill:currentColor;
-  height:48px;
-  width:48px;
+  fill: currentColor;
+  height: 48px;
+  width: 48px;
 }
-.screenshot-tips-content{
+
+.screenshot-tips-content {
   color: rgb(117, 117, 117);
   font-weight: 400;
   font-size: 14px;
@@ -128,13 +134,13 @@
 }
 
 .dialog-actions {
-  margin:4px 0 4px 0!important;
+  margin: 4px 0 4px 0 !important;
   border-top: 1px solid rgb(224, 224, 224);
-  height:50px;
+  height: 50px;
 }
 
 .submit-button {
-  margin-right:8px!important;
+  margin-right: 8px !important;
   margin-left: 0 !important;
   color: rgb(66, 133, 244);
 }
@@ -145,31 +151,32 @@
   font-weight: 500;
   font-stretch: normal;
   font-size: 14px;
-  margin-left:auto;
-  margin-right:0;
-  height:32px;
-  line-height:normal;
-  padding:0 8px 0 8px;
+  margin-left: auto;
+  margin-right: 0;
+  height: 32px;
+  line-height: normal;
+  padding: 0 8px 0 8px;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
   min-width: 75px;
 }
-.loading{
-  height:50px;
-  margin:0 auto;
+
+.loading {
+  height: 50px;
+  margin: 0 auto;
 }
-.mat-dialog-actions{
+
+.mat-dialog-actions {
   padding: 0 !important;
 }
-/deep/ .mat-dialog-container{
-  padding:0;
+
+/deep/ .mat-dialog-container {
+  padding: 0;
   overflow: visible;
-  background-color: rgba(255,255,255,0);
+  background-color: rgba(255, 255, 255, 0);
   box-shadow: initial;
 }
-
-
 
 .toolbar-tips {
   background-color: rgba(255, 255, 255, 0.6);
@@ -198,17 +205,19 @@
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
+
 @keyframes cssAnimation {
   to {
-    width:0;
-    height:0;
-    overflow:hidden;
+    width: 0;
+    height: 0;
+    overflow: hidden;
   }
 }
+
 @-webkit-keyframes cssAnimation {
   to {
-    width:0;
-    height:0;
-    visibility:hidden;
+    width: 0;
+    height: 0;
+    visibility: hidden;
   }
 }
