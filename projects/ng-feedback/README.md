@@ -1,6 +1,6 @@
 # feedback
 
-> An angular directive for sending feedback featuring [Angular 4](https://angular.io), [Html2canvas](html2canvas.hertzen.com), [Angular Material](https://material.angular.io), [Rxjs](http://reactivex.io/rxjs/), inspired by Google send feedback, based on [angular-cli](https://github.com/angular/angular-cli).
+> An angular directive for sending feedback featuring [Angular 6](https://angular.io), [Html2canvas](html2canvas.hertzen.com), [Angular Material](https://material.angular.io), [Rxjs](http://reactivex.io/rxjs/), inspired by Google send feedback, based on [angular-cli](https://github.com/angular/angular-cli).
 
 ## Demo
 ![Alt text](/../screenshots/feedback.gif?raw=true "overview")
@@ -8,7 +8,7 @@
 
 ### Prerequisites
 make sure your project:
-* is an angular(version >= 4.0.0) project
+* is an angular(version >= 6.0.0) project
 * have set up [angular material](https://github.com/angular/material2/blob/master/guides/getting-started.md)
 
 ### How to use it in your project
@@ -48,8 +48,8 @@ The param feedback is an object contains two properties: description and screens
 * screenshot comes from HTMLCanvasElement.toDataURL('image/png'), can be used as src of an img tag.
 
 ### Getting started with this repo
-**Make sure you have Node version >= 6.0 and NPM >= 3**
-> Clone/Download the repo then edit feedback module inside [`/src/app/feedback`](/src/app/feedback)
+**Make sure you have Node version >= 8.0 and NPM >= 3**
+> Clone/Download the repo then edit feedback library inside [`/projects/ng-feedback`](/projects/ng-feedback)
 
 ```bash
 # clone repo
@@ -60,6 +60,13 @@ cd feedback
 
 # install the repo with npm
 npm install
+
+# build the angular library - ng-feedback
+npm run build
+
+# open dist/ng-feedback/lib/feedback.service.d.ts and 
+# change the path of observable from "../../../../node_modules/rxjs/internal/Observable" to "../../../node_modules/rxjs/internal/Observable"
+# P.S. this maybe a bug, still trying to figure out. 
 
 # start the server
 npm start
