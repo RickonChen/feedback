@@ -1,0 +1,13 @@
+<div class="rect" [ngStyle]="{'left.px': rectangle.startX,
+                              'top.px': rectangle.startY,
+                              'width.px': rectangle.width - 1,
+                              'height.px': rectangle.height - 1}"
+    [ngClass]="{'highlight': rectangle.color === 'yellow', 'hide': rectangle.color !== 'yellow'}">
+  <span class="close" (click)="onClose()">
+    <svg viewBox="0 0 1024 1024"
+         width="16" height="16">
+        <path
+          d="M896 224l-96-96-288 288-288-288-96 96 288 288-288 288 96 96 288-288 288 288 96-96-288-288 288-288z"></path>
+    </svg>
+  </span>
+</div>

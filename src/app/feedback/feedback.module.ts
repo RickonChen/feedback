@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {FeedbackDialogComponent} from './feedback-dialog/feedback-dialog.component';
 import {FeedbackToolbarComponent} from './feedback-toolbar/feedback-toolbar.component';
+import {FeedbackRectangleComponent} from './feedback-rectangle/feedback-rectangle.component';
 import {
   MatDialogModule,
   MatButtonModule,
@@ -19,6 +20,7 @@ import {FeedbackDirective} from './feedback.directive';
   declarations: [
     FeedbackDialogComponent,
     FeedbackToolbarComponent,
+    FeedbackRectangleComponent,
     FeedbackDirective
   ],
   imports: [

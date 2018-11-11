@@ -5,7 +5,7 @@ import {Component, ElementRef, Input, Output, EventEmitter, AfterViewInit, ViewC
 
 
 @Component({
-  selector: 'feedback-toolbar', // tslint:disable-line
+  selector: 'feedback-toolbar',
   templateUrl: './feedback-toolbar.component.html',
   styleUrls: ['./feedback-toolbar.component.css']
 })

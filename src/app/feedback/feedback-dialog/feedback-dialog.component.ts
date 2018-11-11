@@ -9,7 +9,7 @@ import {FeedbackService} from '../feedback.service';
 import {Rectangle} from '../entity/rectangle';
 
 @Component({
-  selector: 'feedback-dialog', // tslint:disable-line
+  selector: 'feedback-dialog',
   templateUrl: './feedback-dialog.component.html',
   styleUrls: ['./feedback-dialog.component.css']
 })
@@ -27,7 +27,8 @@ export class FeedbackDialogComponent implements AfterViewInit {
   @ViewChild('screenshotParent')
   public screenshotParent: ElementRef;
   public drawColor: string = 'yellow';
-  private rectangles: Rectangle[] = [];
+  public rectangles: Rectangle[] = [];
+  public rectanglesBackup: Rectangle[] = [];
   private scrollWidth = window.innerWidth || document.body.clientWidth;
   private scrollHeight = window.innerHeight || document.body.clientHeight;
   private elCouldBeHighlighted = ['button', 'a', 'span', 'em', 'i', 'h1', 'h2', 'h3', 'h4',
@@ -51,6 +52,8 @@ export class FeedbackDialogComponent implements AfterViewInit {
         this.feedback.screenshot = canvas.toDataURL('image/png');
         this.screenshotEle = this.feedbackService.getImgEle(canvas);
         this.appendScreenshot();
+        this.rectanglesBackup = this.rectangles;
+        this.rectangles = [];
       }
     );
 
@@ -69,6 +72,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
     }
     this.el.nativeElement.appendChild(this.drawCanvas);
     this.hideBackDrop();
+    this.rectangles = this.rectanglesBackup;
     console.log('expand the board');
   }
 
@@ -99,10 +103,9 @@ export class FeedbackDialogComponent implements AfterViewInit {
       this.showToolbarTips = false;
       this.showSpinner = true;
       this.el.nativeElement.removeChild(this.drawCanvas);
-      setTimeout(() => {
-        this.feedbackService.initScreenshotCanvas();
-        this.showBackDrop();
-      });
+      this.detector.detectChanges();
+      this.feedbackService.initScreenshotCanvas();
+      this.showBackDrop();
     } else {
       this.startDraw(manipulation);
     }
@@ -143,6 +146,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
   private initBackgroundCanvas() {
     this.drawCanvas = document.createElement('canvas');
     this.initCanvasStyle(this.drawCanvas);
+    this.drawCanvas.setAttribute('data-html2canvas-ignore', 'true');
     // The canvas to draw, must use this way to initial the height and width
     this.drawCanvas.height = this.scrollHeight;
     this.drawCanvas.width = this.scrollWidth;
@@ -212,6 +216,14 @@ export class FeedbackDialogComponent implements AfterViewInit {
             }
           } else {
           // drag to draw rectangle
+            if (newRectangle.height < 0) {
+              newRectangle.startY = newRectangle.startY + newRectangle.height;
+              newRectangle.height = Math.abs(newRectangle.height);
+            }
+            if (newRectangle.width < 0) {
+              newRectangle.startX = newRectangle.startX + newRectangle.width;
+              newRectangle.width = Math.abs(newRectangle.width);
+            }
             this.rectangles.push(newRectangle);
           }
           this.drawPersistCanvasRectangles();
@@ -270,5 +282,9 @@ export class FeedbackDialogComponent implements AfterViewInit {
       this.drawCanvas.style.cursor = 'crosshair';
     }
     return rectangle;
+  }
+
+  public closeRect(index: number) {
+    this.rectangles.splice(index, 1);
   }
 }
