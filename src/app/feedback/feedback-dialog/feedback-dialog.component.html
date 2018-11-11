@@ -1,4 +1,4 @@
-<div class="dialog" *ngIf="!showToolbar && !isSwitching">
+<div class="dialog" *ngIf="!showToolbar" data-html2canvas-ignore="true">
   <div class="dialog-title">
     <div class="title-font">
       {{title}}
@@ -34,7 +34,7 @@
     <button mat-button (click)="dialogRef.close(true)" class="submit-button action-button">SEND</button>
   </mat-dialog-actions>
 </div>
-<div *ngIf="showToolbar">
+<div *ngIf="showToolbar" data-html2canvas-ignore="true">
   <div class="toolbar-tips" *ngIf="showToolbarTips">
     Draw using yellow to highlight issues or black to hide sensitive info
   </div>

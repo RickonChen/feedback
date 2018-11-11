@@ -24,8 +24,6 @@ export class FeedbackDialogComponent implements AfterViewInit {
   public screenshotEle: HTMLElement;
   public drawCanvas: HTMLCanvasElement;
   public showToolbarTips: boolean = true;
-  // switch between toolbar and dialog
-  public isSwitching: boolean = false;
   @ViewChild('screenshotParent')
   public screenshotParent: ElementRef;
   public drawColor: string = 'yellow';
@@ -99,13 +97,11 @@ export class FeedbackDialogComponent implements AfterViewInit {
     if (manipulation === 'done') {
       this.showToolbar = false;
       this.showToolbarTips = false;
-      this.isSwitching = true;
       this.showSpinner = true;
       this.el.nativeElement.removeChild(this.drawCanvas);
       setTimeout(() => {
         this.feedbackService.initScreenshotCanvas();
         this.showBackDrop();
-        this.isSwitching = false;
       });
     } else {
       this.startDraw(manipulation);
