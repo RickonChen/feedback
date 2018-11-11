@@ -1,4 +1,4 @@
-<div class="dialog" *ngIf="!showToolbar">
+<div class="dialog" *ngIf="!showToolbar && !isSwitching">
   <div class="dialog-title">
     <div class="title-font">
       {{title}}
@@ -18,7 +18,7 @@
     <mat-checkbox [(ngModel)]="includeScreenshot" (change)="isIncludeScreenshot()">Include screenshot</mat-checkbox>
   </div>
 
-  <button #screenshotParent class="screenshot-content" (click)="expandDrawingBoard()" *ngIf="includeScreenshot">
+  <div #screenshotParent class="screenshot-content" (click)="expandDrawingBoard()" *ngIf="includeScreenshot">
     <mat-spinner class="loading" *ngIf="showSpinner"></mat-spinner>
     <div class="screenshot-tips" *ngIf="!showSpinner">
       <svg focusable="false" aria-label="" viewBox="0 0 24 24">
@@ -27,7 +27,7 @@
       </svg>
       <span class="screenshot-tips-content">Click to highlight or hide info</span>
     </div>
-  </button>
+  </div>
 
   <mat-dialog-actions class="dialog-actions">
     <button mat-button (click)="dialogRef.close()" class="action-button">CANCEL</button>
