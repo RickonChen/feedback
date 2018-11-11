@@ -29,8 +29,8 @@ export class FeedbackDialogComponent implements AfterViewInit {
   public drawColor: string = 'yellow';
   public rectangles: Rectangle[] = [];
   public rectanglesBackup: Rectangle[] = [];
-  private scrollWidth = window.innerWidth || document.body.clientWidth;
-  private scrollHeight = window.innerHeight || document.body.clientHeight;
+  private scrollWidth =  window.innerWidth || document.body.clientWidth;
+  private scrollHeight =  window.innerHeight || document.body.clientHeight;
   private elCouldBeHighlighted = ['button', 'a', 'span', 'em', 'i', 'h1', 'h2', 'h3', 'h4',
     'h5', 'h6', 'p', 'strong', 'small', 'sub', 'sup', 'b', 'time', 'img',
     'video', 'input', 'label', 'select', 'textarea', 'article', 'summary', 'section'];
@@ -68,6 +68,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
   public expandDrawingBoard() {
     this.showToolbar = true;
     if (!this.drawCanvas) {
+      this.detector.detectChanges();
       this.initBackgroundCanvas();
     }
     this.el.nativeElement.appendChild(this.drawCanvas);
@@ -129,25 +130,12 @@ export class FeedbackDialogComponent implements AfterViewInit {
     this.screenshotParent.nativeElement.appendChild(this.screenshotEle);
   }
 
-  private initCanvasStyle(canvas: HTMLElement) {
-    const style = canvas.style;
-    Object.assign(style, {
-      position: 'absolute',
-      top: '0',
-      left: '0',
-      zIndex: '-1',
-      height: '100%',
-      width: '100%',
-      margin: '0 auto',
-      cursor: 'crosshair'
-    });
-  }
 
   private initBackgroundCanvas() {
-    this.drawCanvas = document.createElement('canvas');
-    this.initCanvasStyle(this.drawCanvas);
-    this.drawCanvas.setAttribute('data-html2canvas-ignore', 'true');
+    this.drawCanvas = document.getElementById('draw-canvas') as HTMLCanvasElement;
     // The canvas to draw, must use this way to initial the height and width
+    this.drawCanvas.style.height = this.scrollHeight + '';
+    this.drawCanvas.style.width = this.scrollWidth + '';
     this.drawCanvas.height = this.scrollHeight;
     this.drawCanvas.width = this.scrollWidth;
     this.drawContainerRect();
@@ -254,7 +242,6 @@ export class FeedbackDialogComponent implements AfterViewInit {
 
   private drawPersistCanvasRectangles() {
     this.drawContainerRect();
-    const context = this.drawCanvas.getContext('2d');
     this.rectangles.forEach(tmpRect => {
       this.drawRectangle(tmpRect);
     });
