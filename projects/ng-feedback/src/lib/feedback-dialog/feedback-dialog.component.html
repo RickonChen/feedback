@@ -1,4 +1,4 @@
-<div class="dialog" *ngIf="!showToolbar">
+<div class="dialog" *ngIf="!showToolbar" data-html2canvas-ignore="true">
   <div class="dialog-title">
     <div class="title-font">
       {{title}}
@@ -18,7 +18,7 @@
     <mat-checkbox [(ngModel)]="includeScreenshot" (change)="isIncludeScreenshot()">Include screenshot</mat-checkbox>
   </div>
 
-  <button #screenshotParent class="screenshot-content" (click)="expandDrawingBoard()" *ngIf="includeScreenshot">
+  <div #screenshotParent class="screenshot-content" (click)="expandDrawingBoard()" *ngIf="includeScreenshot">
     <mat-spinner class="loading" *ngIf="showSpinner"></mat-spinner>
     <div class="screenshot-tips" *ngIf="!showSpinner">
       <svg focusable="false" aria-label="" viewBox="0 0 24 24">
@@ -27,19 +27,25 @@
       </svg>
       <span class="screenshot-tips-content">Click to highlight or hide info</span>
     </div>
-  </button>
+  </div>
 
   <mat-dialog-actions class="dialog-actions">
     <button mat-button (click)="dialogRef.close()" class="action-button">CANCEL</button>
     <button mat-button (click)="dialogRef.close(true)" class="submit-button action-button">SEND</button>
   </mat-dialog-actions>
 </div>
-<div *ngIf="showToolbar">
+<div *ngIf="showToolbar" data-html2canvas-ignore="true">
   <div class="toolbar-tips" *ngIf="showToolbarTips">
     Draw using yellow to highlight issues or black to hide sensitive info
   </div>
 
   <feedback-toolbar [drawColor]="drawColor" (manipulate)="manipulate($event)"></feedback-toolbar>
 </div>
+<div *ngIf="rectangles.length > 0">
+  <div  *ngFor="let rectangle of rectangles; index as index">
+    <feedback-rectangle [rectangle]="rectangle" (close)="closeRect(index)">
+    </feedback-rectangle>
+  </div>
 
-
+</div>
+<canvas *ngIf="showToolbar" id="draw-canvas" class="drawCanvas" data-html2canvas-ignore="true"></canvas>

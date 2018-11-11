@@ -77,15 +77,16 @@
 }
 
 .screenshot-content {
-  width: 360px;
-  height: 200px;
-  background-color: rgb(222, 222, 222);
   border: none;
   cursor: pointer;
-  padding: 0;
   text-align: center;
   display: block;
   position: relative;
+  padding: 0;
+  overflow: hidden;
+  height: 192px;
+  width: 100%;
+  background: rgb(237, 237, 237) none;
 }
 
 .screenshot-tips {
@@ -96,12 +97,16 @@
   display: -webkit-flex;
   flex-direction: column;
   justify-content: center;
-  left: 68px;
   min-height: 112px;
-  padding: 16px;
-  position: relative;
   width: 224px;
   z-index: 5;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateY(-50%);
+  margin: 0 auto;
 }
 
 .screenshot-content:hover .screenshot-tips {
@@ -163,8 +168,8 @@
 }
 
 .loading {
-  height: 50px;
-  margin: 0 auto;
+  height: 30px;
+  margin: auto;
 }
 
 .mat-dialog-actions {
@@ -220,4 +225,13 @@
     height: 0;
     visibility: hidden;
   }
+}
+
+.drawCanvas{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  margin: 0 auto;
+  cursor: crosshair;
 }

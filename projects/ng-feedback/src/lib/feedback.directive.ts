@@ -3,7 +3,7 @@ import {MatDialog} from '@angular/material';
 import {FeedbackDialogComponent} from './feedback-dialog/feedback-dialog.component';
 import {FeedbackService} from './feedback.service';
 
-@Directive({selector: '[feedback]'}) // tslint:disable-line
+@Directive({selector: '[feedback]'})
 export class FeedbackDirective {
   @Output()// tslint:disable-line
   public onSend = new EventEmitter<object>();
@@ -22,8 +22,9 @@ export class FeedbackDirective {
   }
 
   public openFeedbackDialog() {
-    this.feedbackService.initScreenshotCanvas(document.documentElement);
+    this.feedbackService.initScreenshotCanvas();
     const dialogRef = this.dialogRef.open(FeedbackDialogComponent, {
+      backdropClass: 'dialogBackDrop',
       disableClose: true,
       height: 'auto',
       width: 'auto'
