@@ -1,6 +1,6 @@
 {
   "name": "ng-feedback",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "description": "An angular directive for sending feedback featuring Angular 6, Html2canvas, Angular Material, Rxjs, inspired by Google send feedback, based on angular-cli.",
   "keywords": ["angular6", "rxjs", "html2canvas", "feedback", "directive"],
