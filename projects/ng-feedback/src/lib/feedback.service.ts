@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import html2canvas from 'html2canvas';
 import {Subject} from 'rxjs';
+import {Observable} from 'rxjs'; // import Observable to solve build issue
+
 @Injectable()
 export class FeedbackService {
   private screenshotCanvasSource = new Subject<any>();
