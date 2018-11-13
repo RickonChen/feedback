@@ -19,7 +19,7 @@
   </div>
 
   <div #screenshotParent class="screenshot-content" (click)="expandDrawingBoard()" *ngIf="includeScreenshot">
-    <mat-spinner class="loading" *ngIf="showSpinner"></mat-spinner>
+    <mat-spinner class="loading" [diameter]="30" ></mat-spinner>
     <div class="screenshot-tips" *ngIf="!showSpinner">
       <svg focusable="false" aria-label="" viewBox="0 0 24 24">
         <path

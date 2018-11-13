@@ -14,7 +14,7 @@
   background-color: black;
 }
 .hide:hover{
-  background-color: rgb(31, 31, 31);
+  background-color: rgba(31, 31, 31, 0.75);
 }
 
 .rect:hover .close {

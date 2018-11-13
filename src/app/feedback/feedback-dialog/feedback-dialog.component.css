@@ -168,8 +168,12 @@
 }
 
 .loading {
-  height: 30px;
-  margin: auto;
+  margin: 0 auto;
+  position: absolute;
+  top: 45%;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .mat-dialog-actions {

@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import html2canvas from 'html2canvas';
-import {Subject, Observable} from 'rxjs'; // import Observable to solve build issue
+import {Subject, Observable} from 'rxjs';
+import {Feedback} from './entity/feedback'; // import Observable to solve build issue
 
 @Injectable()
 export class FeedbackService {
-  private screenshotCanvasSource = new Subject<any>();
-  public screenshotCanvas$ = this.screenshotCanvasSource.asObservable();
-  private feedbackSource = new Subject();
-  public feedback$ = this.feedbackSource.asObservable();
+  private screenshotCanvasSource = new Subject<HTMLCanvasElement>();
+  public screenshotCanvas$: Observable<HTMLCanvasElement> = this.screenshotCanvasSource.asObservable();
+  private feedbackSource = new Subject<Feedback>();
+  public feedback$: Observable<Feedback> = this.feedbackSource.asObservable();
 
   public initScreenshotCanvas() {
     const that = this;
