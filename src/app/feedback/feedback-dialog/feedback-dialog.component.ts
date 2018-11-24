@@ -103,7 +103,6 @@ export class FeedbackDialogComponent implements AfterViewInit {
       this.showToolbar = false;
       this.showToolbarTips = false;
       this.showSpinner = true;
-      this.el.nativeElement.removeChild(this.drawCanvas);
       this.detector.detectChanges();
       this.feedbackService.initScreenshotCanvas();
       this.showBackDrop();
@@ -169,9 +168,9 @@ export class FeedbackDialogComponent implements AfterViewInit {
   }
 
   private addDragListenerOnCanvas() {
-    const mouseUp = observableFromEvent(this.drawCanvas, 'mouseup'),
-          mouseMove = observableFromEvent(this.drawCanvas, 'mousemove'),
-          mouseDown = observableFromEvent(this.drawCanvas, 'mousedown');
+    const mouseUp = observableFromEvent(document.documentElement, 'mouseup'),
+          mouseMove = observableFromEvent(document.documentElement, 'mousemove'),
+          mouseDown = observableFromEvent(document.documentElement, 'mousedown');
 
     this.manuallyDrawRect(mouseDown, mouseMove, mouseUp);
     this.autoDrawRect(mouseMove);
@@ -252,14 +251,14 @@ export class FeedbackDialogComponent implements AfterViewInit {
     const clientX = event.clientX,
           clientY = event.clientY,
           el = document.elementsFromPoint(clientX, clientY)[2];
-    if (el && this.elCouldBeHighlighted.indexOf(el.nodeName.toLowerCase()) > -1) {
+    if (el && this.elCouldBeHighlighted.indexOf(el.nodeName.toLowerCase()) > -1 && el.getAttribute('exclude-rect') !== 'true') {
       rectangle = new Rectangle();
       const rect = el.getBoundingClientRect();
       this.drawCanvas.style.cursor = 'pointer';
 
       Object.assign(rectangle, {
-        startX: rect.left + (document.documentElement.scrollLeft + document.body.scrollLeft),
-        startY: rect.top + (document.documentElement.scrollTop + document.body.scrollTop),
+        startX: rect.left,
+        startY: rect.top,
         width: rect.width,
         height: rect.height,
         color: this.drawColor

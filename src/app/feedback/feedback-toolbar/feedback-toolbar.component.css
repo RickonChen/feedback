@@ -20,6 +20,7 @@
 }
 
 .move-toolbar {
+  z-index: 9999;
   cursor: -webkit-grab;
   height: 56px;
   padding: 0px 12px;

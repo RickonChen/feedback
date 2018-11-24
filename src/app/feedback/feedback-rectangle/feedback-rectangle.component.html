@@ -1,9 +1,9 @@
 <div class="rect" [ngStyle]="{'left.px': rectangle.startX,
                               'top.px': rectangle.startY,
-                              'width.px': rectangle.width - 1,
-                              'height.px': rectangle.height - 1}"
+                              'width.px': rectangle.width ,
+                              'height.px': rectangle.height }"
     [ngClass]="{'highlight': rectangle.color === 'yellow', 'hide': rectangle.color !== 'yellow'}">
-  <span class="close" (click)="onClose()">
+  <span class="close" (click)="onClose()" exclude-rect="true">
     <svg viewBox="0 0 1024 1024"
          width="16" height="16">
         <path

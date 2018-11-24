@@ -1,4 +1,5 @@
 .dialog {
+  z-index: 10000;
   width: 360px;
   background-color: white;
 }
