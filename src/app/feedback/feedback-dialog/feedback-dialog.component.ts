@@ -7,6 +7,7 @@ import {Feedback} from '../entity/feedback';
 import {FeedbackService} from '../feedback.service';
 
 import {Rectangle} from '../entity/rectangle';
+import {element} from 'protractor';
 
 @Component({
   selector: 'feedback-dialog',
@@ -258,8 +259,9 @@ export class FeedbackDialogComponent implements AfterViewInit {
     let rectangle: Rectangle = null;
     const clientX = event.clientX,
           clientY = event.clientY,
-          el = document.elementsFromPoint(clientX, clientY)[2];
-    if (el && this.elCouldBeHighlighted.indexOf(el.nodeName.toLowerCase()) > -1 && el.getAttribute('exclude-rect') !== 'true') {
+          els = document.elementsFromPoint(clientX, clientY),
+          el = els[2];
+    if ((!this.isExcludeRect(els)) && el && this.elCouldBeHighlighted.indexOf(el.nodeName.toLowerCase()) > -1) {
       rectangle = new Rectangle();
       const rect = el.getBoundingClientRect();
       this.drawCanvas.style.cursor = 'pointer';
@@ -280,5 +282,13 @@ export class FeedbackDialogComponent implements AfterViewInit {
 
   public closeRect(index: number) {
     this.rectangles.splice(index, 1);
+  }
+
+  private isExcludeRect(elements: Element[]): boolean {
+    const result = elements.some( el => {
+      return el.getAttribute('exclude-rect') === 'true';
+    });
+    console.log(result);
+    return result;
   }
 }
