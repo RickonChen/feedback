@@ -2,7 +2,9 @@
                               'top.px': rectangle.startY,
                               'width.px': rectangle.width ,
                               'height.px': rectangle.height }"
-    [ngClass]="{'highlight': rectangle.color === 'yellow', 'hide': rectangle.color !== 'yellow'}">
+    [ngClass]="{'highlight': rectangle.color === 'yellow',
+                'hide': rectangle.color !== 'yellow',
+                'noHover': noHover}">
   <span class="close" (click)="onClose()" exclude-rect="true">
     <svg viewBox="0 0 1024 1024"
          width="16" height="16">

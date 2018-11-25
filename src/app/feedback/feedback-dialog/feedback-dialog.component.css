@@ -1,5 +1,6 @@
 .dialog {
-  z-index: 10000;
+  z-index: 1000;
+  position: relative;
   width: 360px;
   background-color: white;
 }
@@ -239,4 +240,8 @@
   z-index: -1;
   margin: 0 auto;
   cursor: crosshair;
+}
+
+.pointerCursor{
+  cursor: default!important;
 }

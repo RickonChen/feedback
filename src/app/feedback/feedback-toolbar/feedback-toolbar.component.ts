@@ -2,6 +2,7 @@ import {fromEvent as observableFromEvent} from 'rxjs';
 
 import {takeUntil, finalize, map, mergeMap} from 'rxjs/operators';
 import {Component, ElementRef, Input, Output, EventEmitter, AfterViewInit, ViewChild, OnChanges} from '@angular/core';
+import {FeedbackService} from '../feedback.service';
 
 
 @Component({
@@ -19,8 +20,9 @@ export class FeedbackToolbarComponent implements AfterViewInit, OnChanges {
   @ViewChild('toggleMove')
   private toggleMoveBtn: ElementRef;
   public isSwitch = false;
+  public isDragging = false;
 
-  constructor(public el: ElementRef) {
+  constructor(public el: ElementRef, private feedbackService: FeedbackService) {
   }
 
   public ngAfterViewInit() {
@@ -54,9 +56,11 @@ export class FeedbackToolbarComponent implements AfterViewInit, OnChanges {
     const mouseMove = observableFromEvent(document.documentElement, 'mousemove');
     const mouseDown = observableFromEvent(this.toggleMoveBtn.nativeElement, 'mousedown');
     const mouseDrag = mouseDown.pipe(mergeMap((md: MouseEvent) => {
+      this.feedbackService.setIsDraggingToolbar(true);
       const startX = md.offsetX;
       const startY = md.offsetY;
       this.disableToolbarTips = true;
+      this.isDragging = true;
       // Calculate dif with mousemove until mouseup
       return mouseMove.pipe(
         map((mm: MouseEvent) => {
@@ -67,7 +71,9 @@ export class FeedbackToolbarComponent implements AfterViewInit, OnChanges {
           };
         }),
         finalize(() => {
+          this.isDragging = false;
           this.disableToolbarTips = false;
+          this.feedbackService.setIsDraggingToolbar(false);
         }),
         takeUntil(mouseUp));
     }));

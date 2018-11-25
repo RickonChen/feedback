@@ -1,4 +1,4 @@
-import {from, fromEvent as observableFromEvent, Observable} from 'rxjs';
+import {from, fromEvent as observableFromEvent, Observable, Subscription} from 'rxjs';
 
 import {takeUntil, finalize, map, mergeMap, timeout, skipWhile, filter} from 'rxjs/operators';
 import {Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, HostListener, Renderer2} from '@angular/core';
@@ -28,14 +28,14 @@ export class FeedbackDialogComponent implements AfterViewInit {
   public screenshotParent: ElementRef;
   public drawColor: string = 'yellow';
   public rectangles: Rectangle[] = [];
-  public rectanglesBackup: Rectangle[] = [];
   private scrollWidth =  window.innerWidth || document.body.clientWidth;
   private scrollHeight =  window.innerHeight || document.body.clientHeight;
   private elCouldBeHighlighted = ['button', 'a', 'span', 'em', 'i', 'h1', 'h2', 'h3', 'h4',
     'h5', 'h6', 'p', 'strong', 'small', 'sub', 'sup', 'b', 'time', 'img',
     'video', 'input', 'label', 'select', 'textarea', 'article', 'summary', 'section'];
   // the flag field 'isManuallyDrawRect' to solve conflict between manually draw and auto draw
-  private isManuallyDrawRect: boolean = false;
+  private manuallyDrawRect$: Subscription;
+  private autoDrawRect$: Subscription;
 
   constructor(public dialogRef: MatDialogRef<FeedbackDialogComponent>,
               private feedbackService: FeedbackService,
@@ -52,8 +52,16 @@ export class FeedbackDialogComponent implements AfterViewInit {
         this.feedback.screenshot = canvas.toDataURL('image/png');
         this.screenshotEle = this.feedbackService.getImgEle(canvas);
         this.appendScreenshot();
-        this.rectanglesBackup = this.rectangles;
-        this.rectangles = [];
+      }
+    );
+
+    this.feedbackService.isDraggingToolbar$.subscribe(
+      (isDragging) => {
+        if (isDragging) {
+          this.destroyCanvasListeners();
+        } else {
+          this.addCanvasListeners();
+        }
       }
     );
 
@@ -70,10 +78,11 @@ export class FeedbackDialogComponent implements AfterViewInit {
     if (!this.drawCanvas) {
       this.detector.detectChanges();
       this.initBackgroundCanvas();
+      this.hideBackDrop();
     }
+    this.addCanvasListeners();
     this.el.nativeElement.appendChild(this.drawCanvas);
     this.hideBackDrop();
-    this.rectangles = this.rectanglesBackup;
     console.log('expand the board');
   }
 
@@ -100,12 +109,12 @@ export class FeedbackDialogComponent implements AfterViewInit {
 
   public manipulate(manipulation: string) {
     if (manipulation === 'done') {
-      this.showToolbar = false;
       this.showToolbarTips = false;
       this.showSpinner = true;
+      this.destroyCanvasListeners();
+      this.showToolbar = false;
       this.detector.detectChanges();
       this.feedbackService.initScreenshotCanvas();
-      this.showBackDrop();
     } else {
       this.startDraw(manipulation);
     }
@@ -138,7 +147,6 @@ export class FeedbackDialogComponent implements AfterViewInit {
     this.drawCanvas.height = this.scrollHeight;
     this.drawCanvas.width = this.scrollWidth;
     this.drawContainerRect();
-    this.addDragListenerOnCanvas();
   }
 
   private drawContainerRect() {
@@ -167,7 +175,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
     context.stroke();
   }
 
-  private addDragListenerOnCanvas() {
+  private addCanvasListeners(): void {
     const mouseUp = observableFromEvent(document.documentElement, 'mouseup'),
           mouseMove = observableFromEvent(document.documentElement, 'mousemove'),
           mouseDown = observableFromEvent(document.documentElement, 'mousedown');
@@ -176,17 +184,21 @@ export class FeedbackDialogComponent implements AfterViewInit {
     this.autoDrawRect(mouseMove);
   }
 
-  private manuallyDrawRect(mouseDown: Observable<Event>, mouseMove: Observable<Event>, mouseUp: Observable<Event>) {
-    const context = this.drawCanvas.getContext('2d');
+  private destroyCanvasListeners(): void {
+    this.manuallyDrawRect$.unsubscribe();
+    this.autoDrawRect$.unsubscribe();
+  }
+
+  private manuallyDrawRect(mouseDown: Observable<Event>, mouseMove: Observable<Event>, mouseUp: Observable<Event>): void {
     const mouseDrag = mouseDown.pipe(mergeMap((mouseDownEvent: MouseEvent) => {
-      if (this.showToolbarTips) {
-        this.showToolbarTips = false;
-      }
-      this.isManuallyDrawRect = true;
+      if (this.showToolbarTips) { this.showToolbarTips = false; }
+      this.autoDrawRect$.unsubscribe();
+
       const newRectangle = new Rectangle();
       newRectangle.startX = mouseDownEvent.offsetX;
       newRectangle.startY = mouseDownEvent.offsetY;
       newRectangle.color = this.drawColor;
+
       return mouseMove.pipe(
         map((mouseMoveEvent: MouseEvent) => {
           newRectangle.width = mouseMoveEvent.clientX - mouseDownEvent.clientX;
@@ -198,9 +210,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
           if (newRectangle.width === undefined || newRectangle.height === undefined ||
             newRectangle.width === 0 || newRectangle.height === 0) {
             const rect = this.drawTempCanvasRectangle(mouseDownEvent);
-            if (rect) {
-              this.rectangles.push(rect);
-            }
+            if (rect) { this.rectangles.push(rect); }
           } else {
           // drag to draw rectangle
             if (newRectangle.height < 0) {
@@ -214,12 +224,12 @@ export class FeedbackDialogComponent implements AfterViewInit {
             this.rectangles.push(newRectangle);
           }
           this.drawPersistCanvasRectangles();
-          this.isManuallyDrawRect = false;
+          this.autoDrawRect(mouseMove);
         }),
         takeUntil(mouseUp));
     }));
 
-    mouseDrag.subscribe(
+    this.manuallyDrawRect$ = mouseDrag.subscribe(
       (rec) => {
         this.drawPersistCanvasRectangles();
         this.drawRectangle(rec);
@@ -227,13 +237,11 @@ export class FeedbackDialogComponent implements AfterViewInit {
     );
   }
 
-  private autoDrawRect(mouseMove: Observable<Event>) {
-    mouseMove.subscribe({
+  private autoDrawRect(mouseMove: Observable<Event>): void {
+    this.autoDrawRect$ = mouseMove.subscribe({
       next: (mouseMoveEvent: MouseEvent) => {
-        if (this.isManuallyDrawRect === false) {
-          this.drawPersistCanvasRectangles();
-          this.drawTempCanvasRectangle(mouseMoveEvent);
-        }
+        this.drawPersistCanvasRectangles();
+        this.drawTempCanvasRectangle(mouseMoveEvent);
       },
       error: err => console.error('something wrong occurred: ' + err),
     });

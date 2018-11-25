@@ -17,10 +17,10 @@
   top: 25%;
   left: 0;
   right: 0;
+  z-index: 999;
 }
 
 .move-toolbar {
-  z-index: 9999;
   cursor: -webkit-grab;
   height: 56px;
   padding: 0px 12px;

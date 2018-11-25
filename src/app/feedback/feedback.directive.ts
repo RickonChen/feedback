@@ -1,5 +1,5 @@
 import {Directive, HostListener, EventEmitter, Output} from '@angular/core';
-import {MatDialog} from '@angular/material';
+import {DialogPosition, MatDialog} from '@angular/material';
 import {FeedbackDialogComponent} from './feedback-dialog/feedback-dialog.component';
 import {FeedbackService} from './feedback.service';
 import {Overlay} from '@angular/cdk/overlay';
@@ -32,7 +32,7 @@ export class FeedbackDirective {
       disableClose: true,
       height: 'auto',
       width: 'auto',
-      scrollStrategy: this.overlay.scrollStrategies.reposition()
+      // scrollStrategy: this.overlay.scrollStrategies.reposition()
     });
   }
 }

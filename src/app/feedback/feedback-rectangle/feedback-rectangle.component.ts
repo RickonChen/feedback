@@ -10,6 +10,8 @@ import {Rectangle} from '../entity/rectangle';
 export class FeedbackRectangleComponent {
   @Input()
   public rectangle: Rectangle;
+  @Input()
+  public noHover: boolean;
   @Output()
   public close = new EventEmitter<boolean>();
 

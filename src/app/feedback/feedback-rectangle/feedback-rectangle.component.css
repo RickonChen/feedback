@@ -1,7 +1,7 @@
 .rect {
-  z-index: 5;
-  position: absolute;
+  position: fixed;
   background: none;
+  z-index: 3;
 }
 .highlight:hover {
   cursor: default;
@@ -32,5 +32,9 @@
   cursor: pointer;
   display: none;
   user-select: none;
+}
+
+.noHover{
+  pointer-events: none;
 }
 

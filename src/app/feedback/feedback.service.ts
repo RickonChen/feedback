@@ -5,10 +5,15 @@ import {Feedback} from './entity/feedback'; // import Observable to solve build 
 
 @Injectable()
 export class FeedbackService {
+
   private screenshotCanvasSource = new Subject<HTMLCanvasElement>();
   public screenshotCanvas$: Observable<HTMLCanvasElement> = this.screenshotCanvasSource.asObservable();
+
   private feedbackSource = new Subject<Feedback>();
   public feedback$: Observable<Feedback> = this.feedbackSource.asObservable();
+
+  private isDraggingToolbarSource = new Subject<boolean>();
+  public isDraggingToolbar$: Observable<boolean> = this.isDraggingToolbarSource.asObservable();
 
   public initScreenshotCanvas() {
     const that = this;
@@ -39,15 +44,19 @@ export class FeedbackService {
     return canvas;
   }
 
-  public setCanvas(canvas) {
+  public setCanvas(canvas: HTMLCanvasElement): void {
     this.screenshotCanvasSource.next(canvas);
   }
 
-  public setFeedback(feedback) {
+  public setFeedback(feedback: Feedback): void {
     this.feedbackSource.next(feedback);
   }
 
-  public getImgEle(canvas) {
+  public setIsDraggingToolbar(isDragging: boolean): void {
+    this.isDraggingToolbarSource.next(isDragging);
+  }
+
+  public getImgEle(canvas): HTMLElement {
     const img = canvas.toDataURL('image/png'),
           imageEle = document.createElement('img');
     imageEle.setAttribute('src', img);
