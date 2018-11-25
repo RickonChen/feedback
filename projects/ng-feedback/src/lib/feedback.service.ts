@@ -1,13 +1,22 @@
 import {Injectable} from '@angular/core';
 import html2canvas from 'html2canvas';
-import {Subject, Observable} from 'rxjs'; // import Observable to solve build issue
+import {Subject, Observable} from 'rxjs';
+import {Feedback} from './entity/feedback'; // import Observable to solve build issue
 
 @Injectable()
 export class FeedbackService {
-  private screenshotCanvasSource = new Subject<any>();
-  public screenshotCanvas$ = this.screenshotCanvasSource.asObservable();
-  private feedbackSource = new Subject();
-  public feedback$ = this.feedbackSource.asObservable();
+
+  public highlightedColor = 'yellow';
+  public hiddenColor = 'black';
+  private screenshotCanvasSource = new Subject<HTMLCanvasElement>();
+  public screenshotCanvas$: Observable<HTMLCanvasElement> = this.screenshotCanvasSource.asObservable();
+
+  private feedbackSource = new Subject<Feedback>();
+  public feedback$: Observable<Feedback> = this.feedbackSource.asObservable();
+
+  private isDraggingToolbarSource = new Subject<boolean>();
+  public isDraggingToolbar$: Observable<boolean> = this.isDraggingToolbarSource.asObservable();
+
 
   public initScreenshotCanvas() {
     const that = this;
@@ -38,15 +47,19 @@ export class FeedbackService {
     return canvas;
   }
 
-  public setCanvas(canvas) {
+  public setCanvas(canvas: HTMLCanvasElement): void {
     this.screenshotCanvasSource.next(canvas);
   }
 
-  public setFeedback(feedback) {
+  public setFeedback(feedback: Feedback): void {
     this.feedbackSource.next(feedback);
   }
 
-  public getImgEle(canvas) {
+  public setIsDraggingToolbar(isDragging: boolean): void {
+    this.isDraggingToolbarSource.next(isDragging);
+  }
+
+  public getImgEle(canvas): HTMLElement {
     const img = canvas.toDataURL('image/png'),
           imageEle = document.createElement('img');
     imageEle.setAttribute('src', img);
@@ -61,5 +74,18 @@ export class FeedbackService {
       transform: 'translateY(-50%)'
     });
     return imageEle;
+  }
+
+  public hideBackDrop() {
+    const dialogBackDrop = document.getElementsByClassName('dialogBackDrop')[0] as HTMLElement;
+    dialogBackDrop.style.backgroundColor = 'initial';
+  }
+
+  public showBackDrop() {
+    const dialogBackDrop = document.getElementsByClassName('dialogBackDrop')[0] as HTMLElement;
+    if (!dialogBackDrop.getAttribute('data-html2canvas-ignore')) {
+      dialogBackDrop.setAttribute('data-html2canvas-ignore', 'true');
+    }
+    dialogBackDrop.style.backgroundColor = 'rgba(0, 0, 0, .288)';
   }
 }

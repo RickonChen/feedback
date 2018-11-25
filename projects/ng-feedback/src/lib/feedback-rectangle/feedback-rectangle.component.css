@@ -1,20 +1,17 @@
 .rect {
-  position: absolute;
+  position: fixed;
   background: none;
-}
-.highlight{
-  border: 1px solid yellow;
+  z-index: 3;
 }
 .highlight:hover {
   cursor: default;
   background: rgba(55, 131, 249, 0.2);
 }
 .hide {
-  border: 1px solid black;
   background-color: black;
 }
 .hide:hover{
-  background-color: rgb(31, 31, 31);
+  background-color: rgba(31, 31, 31, 0.75);
 }
 
 .rect:hover .close {
@@ -35,5 +32,9 @@
   cursor: pointer;
   display: none;
   user-select: none;
+}
+
+.noHover{
+  pointer-events: none;
 }
 
