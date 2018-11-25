@@ -170,8 +170,8 @@ export class FeedbackDialogComponent implements AfterViewInit {
   }
 
   private destroyCanvasListeners(): void {
-    this.manuallyDrawRect$.unsubscribe();
-    this.autoDrawRect$.unsubscribe();
+    if (this.manuallyDrawRect$) { this.manuallyDrawRect$.unsubscribe(); }
+    if (this.autoDrawRect$) { this.autoDrawRect$.unsubscribe(); }
   }
 
   private manuallyDrawRect(mouseDown: Observable<Event>, mouseMove: Observable<Event>, mouseUp: Observable<Event>): void {
