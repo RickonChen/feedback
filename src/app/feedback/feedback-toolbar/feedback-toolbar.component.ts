@@ -34,7 +34,7 @@ export class FeedbackToolbarComponent implements AfterViewInit, OnChanges {
   }
 
   public ngOnChanges() {
-    this.isSwitch = this.drawColor !== 'yellow';
+    this.isSwitch = this.drawColor !== this.feedbackService.highlightedColor;
   }
 
   public done() {
@@ -43,12 +43,12 @@ export class FeedbackToolbarComponent implements AfterViewInit, OnChanges {
 
   public toggleHighlight() {
     this.isSwitch = false;
-    this.manipulate.emit('yellow');
+    this.manipulate.emit(this.feedbackService.highlightedColor);
   }
 
   public toggleHide() {
     this.isSwitch = true;
-    this.manipulate.emit('black');
+    this.manipulate.emit(this.feedbackService.hiddenColor);
   }
 
   public addDragListenerOnMoveBtn() {

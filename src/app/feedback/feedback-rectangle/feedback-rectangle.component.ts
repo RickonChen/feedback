@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output} from '@angular/core';
 import {Rectangle} from '../entity/rectangle';
+import {FeedbackService} from '../feedback.service';
 
 @Component({
   selector: 'feedback-rectangle',
@@ -15,7 +16,12 @@ export class FeedbackRectangleComponent {
   @Output()
   public close = new EventEmitter<boolean>();
 
+  constructor(public feedbackService: FeedbackService) {
+  }
+
   public onClose(): void {
     this.close.emit();
   }
+
+
 }

@@ -6,6 +6,8 @@ import {Feedback} from './entity/feedback'; // import Observable to solve build 
 @Injectable()
 export class FeedbackService {
 
+  public highlightedColor = 'yellow';
+  public hiddenColor = 'black';
   private screenshotCanvasSource = new Subject<HTMLCanvasElement>();
   public screenshotCanvas$: Observable<HTMLCanvasElement> = this.screenshotCanvasSource.asObservable();
 
@@ -14,6 +16,7 @@ export class FeedbackService {
 
   private isDraggingToolbarSource = new Subject<boolean>();
   public isDraggingToolbar$: Observable<boolean> = this.isDraggingToolbarSource.asObservable();
+
 
   public initScreenshotCanvas() {
     const that = this;
@@ -71,5 +74,18 @@ export class FeedbackService {
       transform: 'translateY(-50%)'
     });
     return imageEle;
+  }
+
+  public hideBackDrop() {
+    const dialogBackDrop = document.getElementsByClassName('dialogBackDrop')[0] as HTMLElement;
+    dialogBackDrop.style.backgroundColor = 'initial';
+  }
+
+  public showBackDrop() {
+    const dialogBackDrop = document.getElementsByClassName('dialogBackDrop')[0] as HTMLElement;
+    if (!dialogBackDrop.getAttribute('data-html2canvas-ignore')) {
+      dialogBackDrop.setAttribute('data-html2canvas-ignore', 'true');
+    }
+    dialogBackDrop.style.backgroundColor = 'rgba(0, 0, 0, .288)';
   }
 }

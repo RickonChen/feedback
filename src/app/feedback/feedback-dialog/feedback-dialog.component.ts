@@ -1,6 +1,6 @@
 import {from, fromEvent as observableFromEvent, Observable, Subscription} from 'rxjs';
 
-import {takeUntil, finalize, map, mergeMap, timeout, skipWhile, filter} from 'rxjs/operators';
+import {takeUntil, finalize, map, mergeMap, timeout, skipWhile, filter, scan, first} from 'rxjs/operators';
 import {Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, HostListener, Renderer2} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {Feedback} from '../entity/feedback';
@@ -27,7 +27,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
   public showToolbarTips: boolean = true;
   @ViewChild('screenshotParent')
   public screenshotParent: ElementRef;
-  public drawColor: string = 'yellow';
+  public drawColor: string = this.feedbackService.highlightedColor;
   public rectangles: Rectangle[] = [];
   private scrollWidth =  window.innerWidth || document.body.clientWidth;
   private scrollHeight =  window.innerHeight || document.body.clientHeight;
@@ -47,31 +47,27 @@ export class FeedbackDialogComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit() {
-    this.feedbackService.screenshotCanvas$.subscribe(
-      (canvas) => {
-        this.showSpinner = false;
-        this.feedback.screenshot = canvas.toDataURL('image/png');
-        this.screenshotEle = this.feedbackService.getImgEle(canvas);
-        this.appendScreenshot();
-      }
-    );
+    this.feedbackService.screenshotCanvas$.subscribe((canvas) => {
+      this.showSpinner = false;
+      this.feedback.screenshot = canvas.toDataURL('image/png');
+      this.screenshotEle = this.feedbackService.getImgEle(canvas);
+      this.appendScreenshot();
+    });
 
-    this.feedbackService.isDraggingToolbar$.subscribe(
-      (isDragging) => {
-        if (isDragging) {
-          this.destroyCanvasListeners();
-        } else {
-          this.addCanvasListeners();
-        }
+    this.feedbackService.isDraggingToolbar$.subscribe((isDragging) => {
+      if (isDragging) {
+        this.destroyCanvasListeners();
+      } else {
+        this.addCanvasListeners();
       }
-    );
+    });
 
     this.dialogRef.afterClosed().subscribe((sendNow) => {
       if (sendNow === true) {
         this.feedbackService.setFeedback(this.feedback);
       }
     });
-    this.showBackDrop();
+    this.feedbackService.showBackDrop();
   }
 
   public expandDrawingBoard() {
@@ -79,25 +75,12 @@ export class FeedbackDialogComponent implements AfterViewInit {
     if (!this.drawCanvas) {
       this.detector.detectChanges();
       this.initBackgroundCanvas();
-      this.hideBackDrop();
+      this.feedbackService.hideBackDrop();
     }
     this.addCanvasListeners();
     this.el.nativeElement.appendChild(this.drawCanvas);
-    this.hideBackDrop();
+    this.feedbackService.hideBackDrop();
     console.log('expand the board');
-  }
-
-  private hideBackDrop() {
-    const dialogBackDrop = document.getElementsByClassName('dialogBackDrop')[0] as HTMLElement;
-    dialogBackDrop.style.backgroundColor = 'initial';
-  }
-
-  private showBackDrop() {
-    const dialogBackDrop = document.getElementsByClassName('dialogBackDrop')[0] as HTMLElement;
-    if (!dialogBackDrop.getAttribute('data-html2canvas-ignore')) {
-      dialogBackDrop.setAttribute('data-html2canvas-ignore', 'true');
-    }
-    dialogBackDrop.style.backgroundColor = 'rgba(0, 0, 0, .288)';
   }
 
   @HostListener('document:keydown.escape', ['$event'])
@@ -139,7 +122,6 @@ export class FeedbackDialogComponent implements AfterViewInit {
     this.screenshotParent.nativeElement.appendChild(this.screenshotEle);
   }
 
-
   private initBackgroundCanvas() {
     this.drawCanvas = document.getElementById('draw-canvas') as HTMLCanvasElement;
     // The canvas to draw, must use this way to initial the height and width
@@ -162,18 +144,20 @@ export class FeedbackDialogComponent implements AfterViewInit {
 
   private drawRectangle(rect: Rectangle) {
     const context = this.drawCanvas.getContext('2d');
-    context.clearRect(rect.startX, rect.startY, rect.width, rect.height);
+    context.lineJoin = 'round';
     context.beginPath();
-    if (rect.color === 'black') {
-      context.fillStyle = 'rgba(0,0,0, .7)';
+    if (rect.color === this.feedbackService.hiddenColor) {
+      context.fillStyle = 'rgba(31, 31, 31, 0.75)';
       context.fillRect(rect.startX, rect.startY, rect.width, rect.height);
-      context.strokeStyle = 'rgba(0,0,0, .7)';
+      context.rect(rect.startX, rect.startY, rect.width, rect.height);
     } else {
+      context.clearRect(rect.startX, rect.startY, rect.width, rect.height);
+      context.lineWidth = 5;
       context.strokeStyle = rect.color;
+      context.rect(rect.startX, rect.startY, rect.width, rect.height);
+      context.stroke();
+      context.clearRect(rect.startX, rect.startY, rect.width, rect.height);
     }
-    context.rect(rect.startX, rect.startY, rect.width, rect.height);
-    context.lineWidth = 1;
-    context.stroke();
   }
 
   private addCanvasListeners(): void {
@@ -196,8 +180,8 @@ export class FeedbackDialogComponent implements AfterViewInit {
       this.autoDrawRect$.unsubscribe();
 
       const newRectangle = new Rectangle();
-      newRectangle.startX = mouseDownEvent.offsetX;
-      newRectangle.startY = mouseDownEvent.offsetY;
+      newRectangle.startX = mouseDownEvent.clientX + (document.documentElement.scrollLeft + document.body.scrollLeft);
+      newRectangle.startY = mouseDownEvent.clientY + (document.documentElement.scrollTop + document.body.scrollTop);
       newRectangle.color = this.drawColor;
 
       return mouseMove.pipe(
@@ -253,6 +237,11 @@ export class FeedbackDialogComponent implements AfterViewInit {
     this.rectangles.forEach(tmpRect => {
       this.drawRectangle(tmpRect);
     });
+    this.rectangles.forEach(tmpRect => {
+      if (tmpRect.color === this.feedbackService.highlightedColor) {
+        this.drawCanvas.getContext('2d').clearRect(tmpRect.startX, tmpRect.startY, tmpRect.width, tmpRect.height);
+      }
+    });
   }
 
   private drawTempCanvasRectangle(event: MouseEvent) {
@@ -288,7 +277,6 @@ export class FeedbackDialogComponent implements AfterViewInit {
     const result = elements.some( el => {
       return el.getAttribute('exclude-rect') === 'true';
     });
-    console.log(result);
     return result;
   }
 }

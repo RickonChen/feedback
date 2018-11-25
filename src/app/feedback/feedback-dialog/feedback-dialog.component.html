@@ -41,10 +41,8 @@
 
   <feedback-toolbar [drawColor]="drawColor" (manipulate)="manipulate($event)"></feedback-toolbar>
 </div>
-<div *ngIf="rectangles.length > 0">
-  <div *ngFor="let rectangle of rectangles; index as index">
-    <feedback-rectangle [rectangle]="rectangle" [noHover]="!showToolbar" (close)="closeRect(index)">
+<div>
+    <feedback-rectangle *ngFor="let rectangle of rectangles; index as index" [rectangle]="rectangle" [noHover]="!showToolbar" (close)="closeRect(index)">
     </feedback-rectangle>
-  </div>
 </div>
 <canvas id="draw-canvas" class="drawCanvas" [ngClass]="{'pointerCursor': !showToolbar}"></canvas>
