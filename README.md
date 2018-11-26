@@ -9,7 +9,7 @@ make sure your project:
 * is an angular(version >= 6.0.0) project
 * have set up [angular material](https://github.com/angular/material2/blob/master/guides/getting-started.md)
 
-### How to use it in your project
+#### How to use it in your project
 > download it from npm
 
 ```bash
@@ -26,10 +26,26 @@ easy to use the directive, just add it in a html tag, such as:
 <button feedback>feedback</button>
 ```
 
-### options
+#### Properties
+
+| Name             | Default Value                                                         |
+|------------------|-----------------------------------------------------------------------|
+| `title`          | Send feedback                                                         |
+| `placeholder`    | Describe your issue or share your ideas                               |
+| `editTip`        | Click to highlight or hide info                                       |
+| `checkboxLabel`  | Include screenshot                                                    |
+| `cancelLabel`    | CANCEL                                                                |
+| `sendLabel`      | SEND                                                                  |
+| `moveToolbarTip` | move toolbar                                                          |
+| `drawRectTip`    | Draw using yellow to highlight issues or black to hide sensitive info |
+| `highlightTip`   | highlight issues                                                      |
+| `hideTip`        | hide sensitive info                                                   |
+| `editDoneLabel`  | DONE                                                                  |
+
+### method
 
 ```
-onSend(feedback)
+send(feedback)
 ```
 
 it is an output of the directive, the usage is:
@@ -37,7 +53,7 @@ it is an output of the directive, the usage is:
 ```
 <button 
   feedback 
-  (onSend)="onSend($event)">feedback
+  (send)="onSend($event)">feedback
 </button>
 ```
 Then you can custom the onSend method in your component.
