@@ -21,12 +21,12 @@ export class FeedbackRectangleComponent {
   }
 
   @HostListener('mouseenter')
-  private onMouseEnter(): void {
+  public onMouseEnter(): void {
     this.showCloseTag = this.noHover === false;
   }
 
   @HostListener('mouseleave')
-  private onMouseLeave(): void {
+  public onMouseLeave(): void {
     this.showCloseTag = false;
   }
 
