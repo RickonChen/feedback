@@ -1,5 +1,5 @@
-<div class="toolbar">
-  <div class="move-toolbar" #toggleMove matTooltip="move toolbar" [matTooltipDisabled]="disableToolbarTips">
+<div exclude-rect="true" class="toolbar">
+  <div class="move-toolbar" #toggleMove [matTooltip]="vars['moveToolbarTip']" [matTooltipDisabled]="disableToolbarTips">
     <svg focusable="false" aria-label="Drag" fill="#BDBDBD" height="56" width="16"
          viewBox="-2 2 12 12">
       <circle cx="1.5" cy="1.5" r="1.5"></circle>
@@ -10,7 +10,7 @@
       <circle cx="6.5" cy="13.5" r="1.5"></circle>
     </svg>
   </div>
-  <button #highlightBtn (click)="toggleHighlight()" matTooltip="highlight issues"
+  <button #highlightBtn (click)="toggleHighlight()" [matTooltip]="vars['highlightTip']"
           [matTooltipDisabled]="disableToolbarTips" class="highlight-toggle" [ngClass]="{'deepen-color': !isSwitch}">
     <span class="toggle">
       <svg focusable="false" aria-label="" viewBox="0 0 24 24" height="36" width="36"
@@ -25,7 +25,7 @@
       </svg>
     </span>
   </button>
-  <button (click)="toggleHide()" matTooltip="hide sensitive info" [matTooltipDisabled]="disableToolbarTips"
+  <button (click)="toggleHide()" [matTooltip]="vars['hideTip']" [matTooltipDisabled]="disableToolbarTips"
           class="hide-toggle" [ngClass]="{'deepen-color': isSwitch}">
     <span class="toggle">
       <svg focusable="false" aria-label="" viewBox="0 0 24 24" height="36" width="36"
@@ -39,5 +39,5 @@
       </svg>
     </span>
   </button>
-  <button mat-button class="merge-button" (click)="done()">DONE</button>
+  <button mat-button class="merge-button" (click)="done()">{{vars['editDoneLabel']}}</button>
 </div>

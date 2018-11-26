@@ -1,17 +1,15 @@
 # feedback
-
-> An angular directive for sending feedback featuring [Angular 6](https://angular.io), [Html2canvas](html2canvas.hertzen.com), [Angular Material](https://material.angular.io), [Rxjs](http://reactivex.io/rxjs/), inspired by Google send feedback, based on [angular-cli](https://github.com/angular/angular-cli).
+> An angular directive for sending feedback featuring [Angular 6](https://angular.io), [Html2canvas](https://html2canvas.hertzen.com/), [Angular Material](https://material.angular.io), [Rxjs](https://rxjs-dev.firebaseapp.com/), inspired by Google send feedback, based on [angular-cli](https://github.com/angular/angular-cli).
 
 ## Demo
 ![Alt text](/../screenshots/feedback.gif?raw=true "overview")
-
 
 ### Prerequisites
 make sure your project:
 * is an angular(version >= 6.0.0) project
 * have set up [angular material](https://github.com/angular/material2/blob/master/guides/getting-started.md)
 
-### How to use it in your project
+#### How to use it in your project
 > download it from npm
 
 ```bash
@@ -28,10 +26,26 @@ easy to use the directive, just add it in a html tag, such as:
 <button feedback>feedback</button>
 ```
 
-### options
+#### Properties
+
+| Name             | Default Value                                                         |
+|------------------|-----------------------------------------------------------------------|
+| `title`          | Send feedback                                                         |
+| `placeholder`    | Describe your issue or share your ideas                               |
+| `editTip`        | Click to highlight or hide info                                       |
+| `checkboxLabel`  | Include screenshot                                                    |
+| `cancelLabel`    | CANCEL                                                                |
+| `sendLabel`      | SEND                                                                  |
+| `moveToolbarTip` | move toolbar                                                          |
+| `drawRectTip`    | Draw using yellow to highlight issues or black to hide sensitive info |
+| `highlightTip`   | highlight issues                                                      |
+| `hideTip`        | hide sensitive info                                                   |
+| `editDoneLabel`  | DONE                                                                  |
+
+### method
 
 ```
-onSend(feedback)
+send(feedback)
 ```
 
 it is an output of the directive, the usage is:
@@ -39,7 +53,7 @@ it is an output of the directive, the usage is:
 ```
 <button 
   feedback 
-  (onSend)="onSend($event)">feedback
+  (send)="onSend($event)">feedback
 </button>
 ```
 Then you can custom the onSend method in your component.
@@ -48,8 +62,8 @@ The param feedback is an object contains two properties: description and screens
 * screenshot comes from HTMLCanvasElement.toDataURL('image/png'), can be used as src of an img tag.
 
 ### Getting started with this repo
-**Make sure you have Node version >= 8.0 and NPM >= 3**
-> Clone/Download the repo then edit feedback library inside [`/projects/ng-feedback`](/projects/ng-feedback)
+**Make sure you have Node version >= 8.0 and NPM >= 5**
+> Clone/Download the repo then edit feedback library inside [`/src/app/feedback`](/src/app/feedback)
 
 ```bash
 # clone repo
@@ -60,13 +74,6 @@ cd feedback
 
 # install the repo with npm
 npm install
-
-# build the angular library - ng-feedback
-npm run build
-
-# open dist/ng-feedback/lib/feedback.service.d.ts and 
-# change the path of observable from "../../../../node_modules/rxjs/internal/Observable" to "../../../node_modules/rxjs/internal/Observable"
-# P.S. this maybe a bug, still trying to figure out. 
 
 # start the server
 npm start

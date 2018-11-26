@@ -1,9 +1,11 @@
-<div class="rect" [ngStyle]="{'left.px': rectangle.startX,
+<div exclude-rect="true" class="rect" [ngStyle]="{'left.px': rectangle.startX,
                               'top.px': rectangle.startY,
-                              'width.px': rectangle.width - 1,
-                              'height.px': rectangle.height - 1}"
-    [ngClass]="{'highlight': rectangle.color === 'yellow', 'hide': rectangle.color !== 'yellow'}">
-  <span class="close" (click)="onClose()">
+                              'width.px': rectangle.width ,
+                              'height.px': rectangle.height }"
+    [ngClass]="{'highlight': rectangle.color === feedbackService.highlightedColor,
+                'hide': rectangle.color !== feedbackService.highlightedColor,
+                'noHover': noHover}">
+  <span exclude-rect="true" class="close" *ngIf="showCloseTag" (click)="onClose()">
     <svg viewBox="0 0 1024 1024"
          width="16" height="16">
         <path

@@ -1,4 +1,6 @@
 .dialog {
+  z-index: 1000;
+  position: relative;
   width: 360px;
   background-color: white;
 }
@@ -139,14 +141,12 @@
 }
 
 .dialog-actions {
-  margin: 4px 0 4px 0 !important;
   border-top: 1px solid rgb(224, 224, 224);
-  height: 50px;
 }
 
 .submit-button {
   margin-right: 8px !important;
-  margin-left: 0 !important;
+  margin-left: 5px !important;
   color: rgb(66, 133, 244);
 }
 
@@ -156,20 +156,21 @@
   font-weight: 500;
   font-stretch: normal;
   font-size: 14px;
-  margin-left: auto;
-  margin-right: 0;
-  height: 32px;
+  height: 35px;
   line-height: normal;
+  margin: 10px 0;
   padding: 0 8px 0 8px;
   position: relative;
-  top: 50%;
-  transform: translateY(-50%);
   min-width: 75px;
 }
 
 .loading {
-  height: 30px;
-  margin: auto;
+  margin: 0 auto;
+  position: absolute;
+  top: 45%;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .mat-dialog-actions {
@@ -234,4 +235,8 @@
   z-index: -1;
   margin: 0 auto;
   cursor: crosshair;
+}
+
+.pointerCursor{
+  cursor: default!important;
 }
