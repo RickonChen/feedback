@@ -3,7 +3,7 @@
 
 ## Demo
 ![Alt text](/../screenshots/feedback.gif?raw=true "overview")
-![Alt text](/../screenshots/feedback.webm)
+
 ### Prerequisites
 make sure your project:
 * is an angular(version >= 6.0.0) project
