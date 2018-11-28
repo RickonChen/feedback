@@ -3,15 +3,19 @@
   background: none;
   z-index: 3;
 }
-.highlight:not(.noHover):hover {
+.highlight:hover {
   cursor: default;
   background: rgba(55, 131, 249, 0.2);
 }
 .hide {
   background-color: black;
 }
-.hide:not(.noHover):hover{
+.hide:hover{
   background-color: rgba(31, 31, 31, 0.75);
+}
+
+.rect:hover .close {
+  display: flex;
 }
 
 .rect .close {
@@ -26,6 +30,11 @@
   right: -12px;
   top: -12px;
   cursor: pointer;
-  display: flex;
+  display: none;
   user-select: none;
 }
+
+.noHover{
+  pointer-events: none;
+}
+

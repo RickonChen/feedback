@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output} from '@angular/core';
 import {Rectangle} from '../entity/rectangle';
 import {FeedbackService} from '../feedback.service';
 
@@ -15,19 +15,8 @@ export class FeedbackRectangleComponent {
   public noHover: boolean;
   @Output()
   public close = new EventEmitter<boolean>();
-  public showCloseTag: boolean = false;
 
   constructor(public feedbackService: FeedbackService) {
-  }
-
-  @HostListener('mouseenter')
-  public onMouseEnter(): void {
-    this.showCloseTag = this.noHover === false;
-  }
-
-  @HostListener('mouseleave')
-  public onMouseLeave(): void {
-    this.showCloseTag = false;
   }
 
   public onClose(): void {

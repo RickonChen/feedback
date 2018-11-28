@@ -17,7 +17,8 @@ import {element} from 'protractor';
 
 export class FeedbackDialogComponent implements AfterViewInit {
   public showToolbar = false;
-  public vars: object = {};
+  public title: string = 'Send feedback';
+  public descriptionTips: string = 'Describe your issue or share your ideas';
   public feedback = new Feedback();
   public includeScreenshot: boolean = true;
   public showSpinner = true;
@@ -28,15 +29,14 @@ export class FeedbackDialogComponent implements AfterViewInit {
   public screenshotParent: ElementRef;
   public drawColor: string = this.feedbackService.highlightedColor;
   public rectangles: Rectangle[] = [];
-  private scrollWidth = document.documentElement.clientWidth;
-  private scrollHeight = document.documentElement.clientHeight;
+  private scrollWidth =  window.innerWidth || document.body.clientWidth;
+  private scrollHeight =  window.innerHeight || document.body.clientHeight;
   private elCouldBeHighlighted = ['button', 'a', 'span', 'em', 'i', 'h1', 'h2', 'h3', 'h4',
     'h5', 'h6', 'p', 'strong', 'small', 'sub', 'sup', 'b', 'time', 'img',
     'video', 'input', 'label', 'select', 'textarea', 'article', 'summary', 'section'];
   // the flag field 'isManuallyDrawRect' to solve conflict between manually draw and auto draw
   private manuallyDrawRect$: Subscription;
   private autoDrawRect$: Subscription;
-  public isDrawingRect: boolean = false;
 
   constructor(public dialogRef: MatDialogRef<FeedbackDialogComponent>,
               private feedbackService: FeedbackService,
@@ -44,7 +44,6 @@ export class FeedbackDialogComponent implements AfterViewInit {
               private el: ElementRef) {
     this.feedback = new Feedback();
     this.feedback.description = '';
-    this.vars = this.feedbackService.initialVariables;
   }
 
   public ngAfterViewInit() {
@@ -114,16 +113,13 @@ export class FeedbackDialogComponent implements AfterViewInit {
       this.detector.detectChanges();
       this.showSpinner = false;
       this.appendScreenshot();
-      this.feedback.screenshot = this.screenshotEle.getAttribute('src');
     } else {
-      delete this.feedback['screenshot'];
       this.showSpinner = true;
     }
   }
 
   private appendScreenshot() {
-    if (this.screenshotParent) {this.screenshotParent.nativeElement.appendChild(this.screenshotEle)};
-
+    this.screenshotParent.nativeElement.appendChild(this.screenshotEle);
   }
 
   private initBackgroundCanvas() {
@@ -161,11 +157,6 @@ export class FeedbackDialogComponent implements AfterViewInit {
       context.rect(rect.startX, rect.startY, rect.width, rect.height);
       context.stroke();
       context.clearRect(rect.startX, rect.startY, rect.width, rect.height);
-      this.rectangles.forEach(tmpRect => {
-        if (tmpRect.color === this.feedbackService.highlightedColor) {
-          context.clearRect(tmpRect.startX, tmpRect.startY, tmpRect.width, tmpRect.height);
-        }
-      });
     }
   }
 
@@ -187,7 +178,6 @@ export class FeedbackDialogComponent implements AfterViewInit {
     const mouseDrag = mouseDown.pipe(mergeMap((mouseDownEvent: MouseEvent) => {
       if (this.showToolbarTips) { this.showToolbarTips = false; }
       this.autoDrawRect$.unsubscribe();
-      this.isDrawingRect = true;
 
       const newRectangle = new Rectangle();
       newRectangle.startX = mouseDownEvent.clientX + (document.documentElement.scrollLeft + document.body.scrollLeft);
@@ -220,7 +210,6 @@ export class FeedbackDialogComponent implements AfterViewInit {
           }
           this.drawPersistCanvasRectangles();
           this.autoDrawRect(mouseMove);
-          this.isDrawingRect = false;
         }),
         takeUntil(mouseUp));
     }));
@@ -247,6 +236,11 @@ export class FeedbackDialogComponent implements AfterViewInit {
     this.drawContainerRect();
     this.rectangles.forEach(tmpRect => {
       this.drawRectangle(tmpRect);
+    });
+    this.rectangles.forEach(tmpRect => {
+      if (tmpRect.color === this.feedbackService.highlightedColor) {
+        this.drawCanvas.getContext('2d').clearRect(tmpRect.startX, tmpRect.startY, tmpRect.width, tmpRect.height);
+      }
     });
   }
 
@@ -277,7 +271,6 @@ export class FeedbackDialogComponent implements AfterViewInit {
 
   public closeRect(index: number) {
     this.rectangles.splice(index, 1);
-    this.drawPersistCanvasRectangles();
   }
 
   private isExcludeRect(elements: Element[]): boolean {

@@ -5,7 +5,7 @@ import {Feedback} from './entity/feedback'; // import Observable to solve build 
 
 @Injectable()
 export class FeedbackService {
-  public initialVariables: object = {};
+
   public highlightedColor = 'yellow';
   public hiddenColor = 'black';
   private screenshotCanvasSource = new Subject<HTMLCanvasElement>();
@@ -22,15 +22,29 @@ export class FeedbackService {
     const that = this;
     const body = document.body;
     html2canvas(body, {
+      canvas: that.generateExistingCanvas(),
       logging: false,
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight,
-      x: document.documentElement.scrollLeft,
-      y: document.documentElement.scrollTop,
+      width: window.innerWidth,
+      height: window.innerHeight,
+      x: document.documentElement.scrollLeft || document.body.scrollLeft,
+      y: document.documentElement.scrollTop || document.body.scrollTop,
       allowTaint : true
     }).then(bodyCanvas => {
       this.screenshotCanvasSource.next(bodyCanvas);
     });
+  }
+
+  private generateExistingCanvas() {
+    const scale = 5;
+    const w = document.body.offsetWidth;
+    const h = document.body.offsetHeight;
+    const canvas = document.createElement('canvas');
+    canvas.width = w * scale;
+    canvas.height = h * scale;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    canvas.getContext('2d').scale(scale, scale);
+    return canvas;
   }
 
   public setCanvas(canvas: HTMLCanvasElement): void {

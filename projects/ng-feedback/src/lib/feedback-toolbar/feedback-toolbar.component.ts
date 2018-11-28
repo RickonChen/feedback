@@ -21,10 +21,8 @@ export class FeedbackToolbarComponent implements AfterViewInit, OnChanges {
   private toggleMoveBtn: ElementRef;
   public isSwitch = false;
   public isDragging = false;
-  public vars: object = {};
 
   constructor(public el: ElementRef, private feedbackService: FeedbackService) {
-    this.vars = feedbackService.initialVariables;
   }
 
   public ngAfterViewInit() {
