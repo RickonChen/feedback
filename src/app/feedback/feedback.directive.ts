@@ -40,8 +40,8 @@ export class FeedbackDirective implements OnInit {
       backdropClass: 'dialogBackDrop',
       disableClose: true,
       height: 'auto',
-      width: 'auto'
-      // scrollStrategy: this.overlay.scrollStrategies.reposition()
+      width: 'auto',
+      scrollStrategy: this.overlay.scrollStrategies.reposition()
     });
   }
 

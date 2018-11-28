@@ -28,8 +28,8 @@ export class FeedbackDialogComponent implements AfterViewInit {
   public screenshotParent: ElementRef;
   public drawColor: string = this.feedbackService.highlightedColor;
   public rectangles: Rectangle[] = [];
-  private scrollWidth = document.documentElement.clientWidth;
-  private scrollHeight = document.documentElement.clientHeight;
+  private scrollWidth = document.documentElement.scrollWidth;
+  private scrollHeight = document.documentElement.scrollHeight;
   private elCouldBeHighlighted = ['button', 'a', 'span', 'em', 'i', 'h1', 'h2', 'h3', 'h4',
     'h5', 'h6', 'p', 'strong', 'small', 'sub', 'sup', 'b', 'time', 'img',
     'video', 'input', 'label', 'select', 'textarea', 'article', 'summary', 'section'];
@@ -122,8 +122,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
   }
 
   private appendScreenshot() {
-    if (this.screenshotParent) {this.screenshotParent.nativeElement.appendChild(this.screenshotEle)};
-
+    if (this.screenshotParent) { this.screenshotParent.nativeElement.appendChild(this.screenshotEle); }
   }
 
   private initBackgroundCanvas() {
@@ -172,10 +171,29 @@ export class FeedbackDialogComponent implements AfterViewInit {
   private addCanvasListeners(): void {
     const mouseUp = observableFromEvent(document.documentElement, 'mouseup'),
           mouseMove = observableFromEvent(document.documentElement, 'mousemove'),
-          mouseDown = observableFromEvent(document.documentElement, 'mousedown');
+          mouseDown = observableFromEvent(document.documentElement, 'mousedown'),
+          scroll = observableFromEvent(window, 'scroll');
 
     this.manuallyDrawRect(mouseDown, mouseMove, mouseUp);
     this.autoDrawRect(mouseMove);
+    this.changeRectPosition(scroll);
+  }
+
+  private changeRectPosition(scroll: Observable<Event>) {
+    scroll.subscribe(
+      event => {
+        const currentWindowScrollX = window.scrollX,
+              currentWindowScrollY = window.scrollY;
+        this.rectangles.forEach(rect => {
+          rect.startY = rect.startY - (currentWindowScrollY - rect.windowScrollY);
+          rect.startX = rect.startX - (currentWindowScrollX - rect.windowScrollX);
+          rect.windowScrollY = currentWindowScrollY;
+          rect.windowScrollX = currentWindowScrollX;
+        });
+        this.drawPersistCanvasRectangles();
+      },
+      error => console.error(error)
+    );
   }
 
   private destroyCanvasListeners(): void {
@@ -190,8 +208,8 @@ export class FeedbackDialogComponent implements AfterViewInit {
       this.isDrawingRect = true;
 
       const newRectangle = new Rectangle();
-      newRectangle.startX = mouseDownEvent.clientX + (document.documentElement.scrollLeft + document.body.scrollLeft);
-      newRectangle.startY = mouseDownEvent.clientY + (document.documentElement.scrollTop + document.body.scrollTop);
+      newRectangle.startX = mouseDownEvent.clientX;
+      newRectangle.startY = mouseDownEvent.clientY;
       newRectangle.color = this.drawColor;
 
       return mouseMove.pipe(
