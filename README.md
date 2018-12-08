@@ -7,7 +7,7 @@
 ### Prerequisites
 make sure your project:
 * is an angular(version >= 6.0.0) project
-* have set up [angular material](https://github.com/angular/material2/blob/master/guides/getting-started.md)
+* has set up [angular material](https://github.com/angular/material2/blob/master/guides/getting-started.md)
 
 #### How to use it in your project
 > download it from npm

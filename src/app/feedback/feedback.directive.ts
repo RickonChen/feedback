@@ -37,6 +37,7 @@ export class FeedbackDirective implements OnInit {
   public openFeedbackDialog() {
     this.feedbackService.initScreenshotCanvas();
     const dialogRef = this.dialogRef.open(FeedbackDialogComponent, {
+      panelClass: 'feedbackDialog',
       backdropClass: 'dialogBackDrop',
       disableClose: true,
       height: 'auto',
