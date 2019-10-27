@@ -18,6 +18,12 @@
       "dom"
     ],
     "paths": {
+      "ng-feedback": [
+        "dist/ng-feedback"
+      ],
+      "ng-feedback/*": [
+        "dist/ng-feedback/*"
+      ]
     }
   }
 }

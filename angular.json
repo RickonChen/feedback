@@ -113,6 +113,41 @@
           }
         }
       }
+    },
+    "ng-feedback": {
+      "root": "projects/ng-feedback",
+      "sourceRoot": "projects/ng-feedback/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-feedback/tsconfig.lib.json",
+            "project": "projects/ng-feedback/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-feedback/src/test.ts",
+            "tsConfig": "projects/ng-feedback/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-feedback/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-feedback/tsconfig.lib.json",
+              "projects/ng-feedback/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "feedback",
