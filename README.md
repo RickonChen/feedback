@@ -1,5 +1,5 @@
 # feedback
-> An angular directive for sending feedback featuring [Angular 6](https://angular.io), [Html2canvas](https://html2canvas.hertzen.com/), [Angular Material](https://material.angular.io), [Rxjs](https://rxjs-dev.firebaseapp.com/), inspired by Google send feedback, based on [angular-cli](https://github.com/angular/angular-cli).
+> An angular directive for sending feedback featuring [Angular 8](https://angular.io), [Html2canvas](https://html2canvas.hertzen.com/), [Angular Material](https://material.angular.io), [Rxjs](https://rxjs-dev.firebaseapp.com/), inspired by Google send feedback, based on [angular-cli](https://github.com/angular/angular-cli).
 
 ## Demo
 ![Alt text](/../screenshots/feedback.gif?raw=true "overview")
@@ -7,13 +7,13 @@
 ### Prerequisites
 make sure your project:
 * is an angular(version >= 6.0.0) project
-* has set up [angular material](https://github.com/angular/material2/blob/master/guides/getting-started.md)
+* has set up [angular material](https://github.com/angular/components/blob/master/guides/getting-started.md)
 
 #### How to use it in your project
 > download it from npm
 
 ```bash
-npm install ng-feedback --save
+npm install html2canvas ng-feedback --save
 ```
 
 use the feedback module in your project, at any module, you just need to imports into your module:
@@ -63,7 +63,7 @@ The param feedback is an object contains two properties: description and screens
 
 ### Getting started with this repo
 **Make sure you have Node version >= 8.0 and NPM >= 5**
-> Clone/Download the repo then edit feedback library inside [`/src/app/feedback`](/src/app/feedback)
+> Clone/Download the repo then edit feedback library inside [`/projects/ng-feedback/src/lib`](/projects/ng-feedback/src/lib)
 
 ```bash
 # clone repo
