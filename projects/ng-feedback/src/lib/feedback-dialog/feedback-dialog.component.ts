@@ -1,20 +1,16 @@
-import {from, fromEvent as observableFromEvent, Observable, Subscription} from 'rxjs';
-
-import {takeUntil, finalize, map, mergeMap, timeout, skipWhile, filter, scan, first} from 'rxjs/operators';
-import {Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, HostListener, Renderer2} from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, HostListener } from '@angular/core';
+import { Observable, Subscription, fromEvent } from 'rxjs';
+import { takeUntil, finalize, map, mergeMap } from 'rxjs/operators';
 import { MatDialogRef } from '@angular/material/dialog';
-import {Feedback} from '../entity/feedback';
-import {FeedbackService} from '../feedback.service';
-
-import {Rectangle} from '../entity/rectangle';
-import {element} from 'protractor';
+import { Feedback } from '../entity/feedback';
+import { Rectangle } from '../entity/rectangle';
+import { FeedbackService } from '../feedback.service';
 
 @Component({
   selector: 'feedback-dialog',
   templateUrl: './feedback-dialog.component.html',
   styleUrls: ['./feedback-dialog.component.css']
 })
-
 export class FeedbackDialogComponent implements AfterViewInit {
   public showToolbar = false;
   public vars: object = {};
@@ -169,10 +165,10 @@ export class FeedbackDialogComponent implements AfterViewInit {
   }
 
   private addCanvasListeners(): void {
-    const mouseUp = observableFromEvent(document.documentElement, 'mouseup'),
-          mouseMove = observableFromEvent(document.documentElement, 'mousemove'),
-          mouseDown = observableFromEvent(document.documentElement, 'mousedown'),
-          scroll = observableFromEvent(window, 'scroll');
+    const mouseUp = fromEvent(document.documentElement, 'mouseup'),
+          mouseMove = fromEvent(document.documentElement, 'mousemove'),
+          mouseDown = fromEvent(document.documentElement, 'mousedown'),
+          scroll = fromEvent(window, 'scroll');
 
     this.manuallyDrawRect(mouseDown, mouseMove, mouseUp);
     this.autoDrawRect(mouseMove);

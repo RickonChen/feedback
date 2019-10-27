@@ -1,8 +1,8 @@
-import {Directive, HostListener, EventEmitter, Output, Input, OnInit} from '@angular/core';
+import { Directive, HostListener, EventEmitter, Output, Input, OnInit } from '@angular/core';
+import { Overlay } from '@angular/cdk/overlay';
 import { MatDialog } from '@angular/material/dialog';
-import {FeedbackDialogComponent} from './feedback-dialog/feedback-dialog.component';
-import {FeedbackService} from './feedback.service';
-import {Overlay} from '@angular/cdk/overlay';
+import { FeedbackDialogComponent } from './feedback-dialog/feedback-dialog.component';
+import { FeedbackService } from './feedback.service';
 
 @Directive({selector: '[feedback]'})
 export class FeedbackDirective implements OnInit {
@@ -36,7 +36,7 @@ export class FeedbackDirective implements OnInit {
 
   public openFeedbackDialog() {
     this.feedbackService.initScreenshotCanvas();
-    const dialogRef = this.dialogRef.open(FeedbackDialogComponent, {
+    this.dialogRef.open(FeedbackDialogComponent, {
       panelClass: 'feedbackDialog',
       backdropClass: 'dialogBackDrop',
       disableClose: true,
@@ -61,5 +61,4 @@ export class FeedbackDirective implements OnInit {
       editDoneLabel: this.editDoneLabel
     };
   }
-
 }

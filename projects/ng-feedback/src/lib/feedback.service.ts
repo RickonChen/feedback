@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import html2canvas from 'html2canvas';
-import {Subject, Observable} from 'rxjs';
-import {Feedback} from './entity/feedback'; // import Observable to solve build issue
+import { Subject, Observable } from 'rxjs';
+import { Feedback } from './entity/feedback';
 
 @Injectable()
 export class FeedbackService {
@@ -16,7 +16,6 @@ export class FeedbackService {
 
   private isDraggingToolbarSource = new Subject<boolean>();
   public isDraggingToolbar$: Observable<boolean> = this.isDraggingToolbarSource.asObservable();
-
 
   public initScreenshotCanvas() {
     const body = document.body;

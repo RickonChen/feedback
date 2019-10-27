@@ -1,9 +1,6 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {FeedbackDialogComponent} from './feedback-dialog/feedback-dialog.component';
-import {FeedbackToolbarComponent} from './feedback-toolbar/feedback-toolbar.component';
-import {FeedbackRectangleComponent} from './feedback-rectangle/feedback-rectangle.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -11,8 +8,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {FeedbackService} from './feedback.service';
-import {FeedbackDirective} from './feedback.directive';
+import { FeedbackDialogComponent } from './feedback-dialog/feedback-dialog.component';
+import { FeedbackToolbarComponent } from './feedback-toolbar/feedback-toolbar.component';
+import { FeedbackRectangleComponent } from './feedback-rectangle/feedback-rectangle.component';
+import { FeedbackService } from './feedback.service';
+import { FeedbackDirective } from './feedback.directive';
 
 @NgModule({
   declarations: [
