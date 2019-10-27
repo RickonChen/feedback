@@ -2,7 +2,7 @@ import {from, fromEvent as observableFromEvent, Observable, Subscription} from '
 
 import {takeUntil, finalize, map, mergeMap, timeout, skipWhile, filter, scan, first} from 'rxjs/operators';
 import {Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, HostListener, Renderer2} from '@angular/core';
-import {MatDialogRef} from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 import {Feedback} from '../entity/feedback';
 import {FeedbackService} from '../feedback.service';
 
