@@ -19,6 +19,7 @@ export class FeedbackDirective implements OnInit {
   @Input() hideTip = 'hide sensitive info';
   @Input() editDoneLabel = 'DONE';
   @Output() public send = new EventEmitter<object>();
+  @Output() public canceled = new EventEmitter<void>();
 
   public constructor(private dialogRef: MatDialog, private feedbackService: FeedbackService, overlay: Overlay) {
     this.feedbackService.feedback$.subscribe(
@@ -43,6 +44,13 @@ export class FeedbackDirective implements OnInit {
       height: 'auto',
       width: 'auto',
       scrollStrategy: this.overlay.scrollStrategies.reposition()
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) {
+        // Cancel clicked
+        this.canceled.emit();
+      }
     });
   }
 

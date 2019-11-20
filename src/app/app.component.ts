@@ -7,7 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  
   public onSend(val) {
     console.log(val);
+  }
+
+  public onCanceled() {
+    console.log('Feedback canceled')
   }
 }
