@@ -4,7 +4,7 @@ import {takeUntil, finalize, map, mergeMap, timeout, skipWhile, filter, scan, fi
 import {Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, HostListener, Renderer2} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
 import {Feedback} from '../entity/feedback';
-import {FeedbackService} from '../feedback.service';
+import {FeedbackInternalService} from '../feedback.service';
 
 import {Rectangle} from '../entity/rectangle';
 import {element} from 'protractor';
@@ -39,7 +39,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
   public isDrawingRect: boolean = false;
 
   constructor(public dialogRef: MatDialogRef<FeedbackDialogComponent>,
-              private feedbackService: FeedbackService,
+              private feedbackService: FeedbackInternalService,
               private detector: ChangeDetectorRef,
               private el: ElementRef) {
     this.feedback = new Feedback();

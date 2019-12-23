@@ -11,8 +11,4 @@ export class AppComponent {
   public onSend(val) {
     console.log(val);
   }
-
-  public onCanceled() {
-    console.log('Feedback canceled')
-  }
 }

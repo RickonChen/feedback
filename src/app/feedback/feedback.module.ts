@@ -13,7 +13,7 @@ import {
   MatCheckboxModule,
   MatProgressSpinnerModule
 } from '@angular/material';
-import {FeedbackService} from './feedback.service';
+import {FeedbackInternalService} from './feedback.service';
 import {FeedbackDirective} from './feedback.directive';
 
 @NgModule({
@@ -41,7 +41,7 @@ import {FeedbackDirective} from './feedback.directive';
     FeedbackDialogComponent
   ],
   providers: [
-    FeedbackService
+    FeedbackInternalService
   ]
 })
 export class FeedbackModule {

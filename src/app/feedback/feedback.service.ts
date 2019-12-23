@@ -4,7 +4,7 @@ import {Subject, Observable} from 'rxjs';
 import {Feedback} from './entity/feedback'; // import Observable to solve build issue
 
 @Injectable()
-export class FeedbackService {
+export class FeedbackInternalService {
   public initialVariables: object = {};
   public highlightedColor = 'yellow';
   public hiddenColor = 'black';

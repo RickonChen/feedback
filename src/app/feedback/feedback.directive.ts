@@ -1,10 +1,16 @@
-import {Directive, HostListener, EventEmitter, Output, Input, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material';
-import {FeedbackDialogComponent} from './feedback-dialog/feedback-dialog.component';
-import {FeedbackService} from './feedback.service';
-import {Overlay} from '@angular/cdk/overlay';
+import { Directive, HostListener, EventEmitter, Output, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { FeedbackDialogComponent } from './feedback-dialog/feedback-dialog.component';
+import { FeedbackInternalService } from './feedback.service';
+import { Overlay } from '@angular/cdk/overlay';
+import { Feedback } from './entity/feedback';
 
-@Directive({selector: '[feedback]'})
+export class SendResultFeedback extends Feedback {
+  success?: boolean;
+  error?: string;
+}
+
+@Directive({ selector: '[feedback]' })
 export class FeedbackDirective implements OnInit {
   private overlay: Overlay;
   @Input() title: string = 'Send feedback';
@@ -18,10 +24,9 @@ export class FeedbackDirective implements OnInit {
   @Input() highlightTip = 'highlight issues';
   @Input() hideTip = 'hide sensitive info';
   @Input() editDoneLabel = 'DONE';
-  @Output() public send = new EventEmitter<object>();
-  @Output() public canceled = new EventEmitter<void>();
+  @Output() public send = new EventEmitter<Partial<SendResultFeedback>>();
 
-  public constructor(private dialogRef: MatDialog, private feedbackService: FeedbackService, overlay: Overlay) {
+  public constructor(private dialogRef: MatDialog, private feedbackService: FeedbackInternalService, overlay: Overlay) {
     this.feedbackService.feedback$.subscribe(
       (feedback) => {
         this.send.emit(feedback);
@@ -49,7 +54,9 @@ export class FeedbackDirective implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (!result) {
         // Cancel clicked
-        this.canceled.emit();
+        this.send.emit({
+          error: 'dialog_canceled'
+        });
       }
     });
   }

@@ -2,7 +2,7 @@ import {fromEvent as observableFromEvent} from 'rxjs';
 
 import {takeUntil, finalize, map, mergeMap} from 'rxjs/operators';
 import {Component, ElementRef, Input, Output, EventEmitter, AfterViewInit, ViewChild, OnChanges} from '@angular/core';
-import {FeedbackService} from '../feedback.service';
+import {FeedbackInternalService} from '../feedback.service';
 
 
 @Component({
@@ -23,7 +23,7 @@ export class FeedbackToolbarComponent implements AfterViewInit, OnChanges {
   public isDragging = false;
   public vars: object = {};
 
-  constructor(public el: ElementRef, private feedbackService: FeedbackService) {
+  constructor(public el: ElementRef, private feedbackService: FeedbackInternalService) {
     this.vars = feedbackService.initialVariables;
   }
 
