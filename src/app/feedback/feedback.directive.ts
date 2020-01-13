@@ -18,6 +18,7 @@ export class FeedbackDirective implements OnInit {
   @Input() highlightTip = 'highlight issues';
   @Input() hideTip = 'hide sensitive info';
   @Input() editDoneLabel = 'DONE';
+  @Input() headerColour = 'rgb(96, 125, 139)';
   @Output() public send = new EventEmitter<object>();
 
   public constructor(private dialogRef: MatDialog, private feedbackService: FeedbackService, overlay: Overlay) {
@@ -58,7 +59,8 @@ export class FeedbackDirective implements OnInit {
       drawRectTip: this.drawRectTip,
       highlightTip: this.highlightTip,
       hideTip: this.hideTip,
-      editDoneLabel: this.editDoneLabel
+      editDoneLabel: this.editDoneLabel,
+      headerColour: this.headerColour
     };
   }
 

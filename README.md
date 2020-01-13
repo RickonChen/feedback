@@ -41,6 +41,7 @@ easy to use the directive, just add it in a html tag, such as:
 | `highlightTip`   | highlight issues                                                      |
 | `hideTip`        | hide sensitive info                                                   |
 | `editDoneLabel`  | DONE                                                                  |
+| `headerColour`   | rgb(96, 125, 139)                                                      |
 
 ### method
 
