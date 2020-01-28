@@ -1,6 +1,6 @@
 {
-  "name": "feedback",
-  "version": "0.0.0",
+  "name": "ngx-feedback",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
