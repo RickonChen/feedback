@@ -1,10 +1,14 @@
 {
   "name": "ngx-md-feedback",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": {
     "email": "workfel@gmail.com",
     "name": "Johan pujol",
     "url": "https://github.com/workfel"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/digikare/feedback"
   },
   "keywords": [
     "angular",
