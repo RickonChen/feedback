@@ -1,6 +1,17 @@
 {
   "name": "ngx-md-feedback",
-  "version": "1.0.1",
+  "version": "1.0.3",
+  "author": {
+    "email": "workfel@gmail.com",
+    "name": "Johan pujol",
+    "url": "https://github.com/workfel"
+  },
+  "keywords": [
+    "angular",
+    "feedback"
+  ],
+  "license": "MIT",
+  "description": "An angular directive for sending feedback",
   "peerDependencies": {
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
