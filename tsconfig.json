@@ -18,6 +18,12 @@
       "dom"
     ],
     "paths": {
+      "ngx-md-feedback": [
+        "dist/ngx-md-feedback"
+      ],
+      "ngx-md-feedback/*": [
+        "dist/ngx-md-feedback/*"
+      ]
     }
   }
 }

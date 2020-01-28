@@ -1,5 +1,5 @@
 {
-  "name": "ngx-feedback",
+  "name": "feedback",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
@@ -9,7 +9,17 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
+  "author": {
+    "email": "workfel@gmail.com",
+    "name": "Johan pujol",
+    "url": "https://github.com/workfel"
+  },
+  "keywords": [
+    "angular",
+    "feedback"
+  ],
+  "description": "An angular directive for sending feedback",
+  "private": false,
   "dependencies": {
     "@angular/animations": "^6.1.10",
     "@angular/common": "^6.1.10",

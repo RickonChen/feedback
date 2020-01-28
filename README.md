@@ -1,4 +1,4 @@
-# ngx-feedback
+# ngx-md-feedback
 > An angular directive for sending feedback featuring [Angular 6](https://angular.io), [Html2canvas](https://html2canvas.hertzen.com/), [Angular Material](https://material.angular.io), [Rxjs](https://rxjs-dev.firebaseapp.com/), inspired by Google send feedback, based on [angular-cli](https://github.com/angular/angular-cli).
 
 > **FORKED FORM https://github.com/RickonChen/feedback** because the owner don't maintain this repo.
@@ -14,12 +14,12 @@ make sure your project:
 > download it from npm
 
 ```bash
-npm install ngx-feedback --save
+npm install ngx-md-feedback --save
 ```
 
 use the feedback module in your project, at any module, you just need to imports into your module:
 ```es6
-import { FeedbackModule } from 'ngx-feedback'
+import { FeedbackModule } from 'ngx-md-feedback'
 ```
 
 easy to use the directive, just add it in a html tag, such as:

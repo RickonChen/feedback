@@ -1,0 +1,31 @@
+.rect {
+  position: fixed;
+  background: none;
+  z-index: 3;
+}
+.highlight:not(.noHover):hover {
+  cursor: default;
+  background: rgba(55, 131, 249, 0.2);
+}
+.hide {
+  background-color: black;
+}
+.hide:not(.noHover):hover{
+  background-color: rgba(31, 31, 31, 0.75);
+}
+
+.rect .close {
+  width: 24px;
+  height: 24px;
+  background: #FFF;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  color: #999;
+  position: absolute;
+  right: -12px;
+  top: -12px;
+  cursor: pointer;
+  display: flex;
+  user-select: none;
+}

@@ -1,0 +1,242 @@
+.dialog {
+  z-index: 1000;
+  position: relative;
+  width: 360px;
+  background-color: white;
+}
+
+.dialog-title {
+  background-color: rgb(96, 125, 139);
+  color: #ffffff;
+  height: 56px;
+}
+
+.title-font {
+  color: white;
+  float: left;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 300;
+  font-stretch: normal;
+  font-size: 20px;
+  line-height: 56px;
+  font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+  padding: 0px 16px;
+  margin: 0px;
+}
+
+.dialog-content {
+  display: -webkit-flex;
+  flex-grow: 1;
+  height: 200px;
+  position: relative;
+}
+
+.description {
+  border: none;
+  box-sizing: border-box;
+  box-shadow: none;
+  color: rgb(33, 33, 33);
+  flex-grow: 1;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  font-stretch: normal;
+  font-size: 16px;
+  line-height: normal;
+  font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+  max-width: 100%;
+  outline: none;
+  padding: 18px 16px 0px;
+  resize: none;
+  width: 100%;
+  height: inherit;
+}
+
+.description-tips {
+  color: rgb(189, 189, 189);
+  display: block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  font-stretch: normal;
+  font-size: 16px;
+  line-height: normal;
+  font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+  left: 0px;
+  position: absolute;
+  padding: 18px 16px 0px;
+  right: 0px;
+}
+
+.screenshot-checkbox {
+  padding: 0 16px 0 16px;
+  background-color: #f8f8f8;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.screenshot-content {
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  display: block;
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  height: 192px;
+  width: 100%;
+  background: rgb(237, 237, 237) none;
+}
+
+.screenshot-tips {
+  align-items: center;
+  background-color: rgba(248, 248, 248, 0.6);
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: -webkit-flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 112px;
+  width: 224px;
+  z-index: 5;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateY(-50%);
+  margin: 0 auto;
+}
+
+.screenshot-content:hover .screenshot-tips {
+  background-color: rgba(248, 248, 248, 0.8);
+}
+
+.screenshot-content:hover .screenshot-tips-content {
+  color: rgb(66, 133, 244);
+}
+
+.screenshot-content:hover svg {
+  color: #4285f4;
+  fill: currentColor;
+}
+
+.screenshot-tips svg {
+  color: #757575;
+  fill: currentColor;
+  height: 48px;
+  width: 48px;
+}
+
+.screenshot-tips-content {
+  color: rgb(117, 117, 117);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+  margin-top: 12px;
+}
+
+.dialog-actions {
+  border-top: 1px solid rgb(224, 224, 224);
+}
+
+.submit-button {
+  margin-right: 8px !important;
+  margin-left: 5px !important;
+  color: rgb(66, 133, 244);
+}
+
+.action-button {
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  font-stretch: normal;
+  font-size: 14px;
+  height: 35px;
+  line-height: normal;
+  margin: 10px 0;
+  padding: 0 8px 0 8px;
+  position: relative;
+  min-width: 75px;
+}
+
+.loading {
+  margin: 0 auto;
+  position: absolute;
+  top: 45%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.mat-dialog-actions {
+  padding: 0 !important;
+}
+
+::ng-deep .feedbackDialog .mat-dialog-container {
+  padding: 0;
+  overflow: visible;
+  background-color: rgba(255, 255, 255, 0);
+  box-shadow: initial;
+}
+
+.toolbar-tips {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  color: rgb(117, 117, 117);
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  font-stretch: normal;
+  font-size: 34px;
+  line-height: 40px;
+  font-family: Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+  margin-bottom: 72px;
+  padding: 22px 0px;
+  text-align: center;
+  visibility: visible;
+  width: 656px;
+  height: auto;
+  -moz-animation: cssAnimation 0s ease-in 5s forwards;
+  /* Firefox */
+  -webkit-animation: cssAnimation 0s ease-in 5s forwards;
+  /* Safari and Chrome */
+  -o-animation: cssAnimation 0s ease-in 5s forwards;
+  /* Opera */
+  animation: cssAnimation 0s ease-in 5s forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+@keyframes cssAnimation {
+  to {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+}
+
+@-webkit-keyframes cssAnimation {
+  to {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
+}
+
+.drawCanvas{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  margin: 0 auto;
+  cursor: crosshair;
+}
+
+.pointerCursor{
+  cursor: default!important;
+}

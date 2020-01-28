@@ -1,0 +1,49 @@
+<div class="dialog" *ngIf="!showToolbar" data-html2canvas-ignore="true">
+  <div class="dialog-title">
+    <div class="title-font">
+      {{vars['title']}}
+    </div>
+  </div>
+  <div class="dialog-content">
+    <div class="description-tips">
+      <div *ngIf="feedback.description==''">{{vars['placeholder']}}</div>
+    </div>
+    <textarea
+      autofocus
+      class="description"
+      [(ngModel)]="feedback.description"
+    ></textarea>
+  </div>
+  <div class="screenshot-checkbox">
+    <mat-checkbox [(ngModel)]="includeScreenshot" (change)="isIncludeScreenshot()">{{vars['checkboxLabel']}}</mat-checkbox>
+  </div>
+
+  <div #screenshotParent class="screenshot-content" (click)="expandDrawingBoard()" *ngIf="includeScreenshot">
+    <mat-spinner class="loading" [diameter]="30" ></mat-spinner>
+    <div></div>
+    <div class="screenshot-tips" *ngIf="!showSpinner">
+      <svg focusable="false" aria-label="" viewBox="0 0 24 24">
+        <path
+          d="M21 17h-2.58l2.51 2.56c-.18.69-.73 1.26-1.41 1.44L17 18.5V21h-2v-6h6v2zM19 7h2v2h-2V7zm2-2h-2V3.08c1.1 0 2 .92 2 1.92zm-6-2h2v2h-2V3zm4 8h2v2h-2v-2zM9 21H7v-2h2v2zM5 9H3V7h2v2zm0-5.92V5H3c0-1 1-1.92 2-1.92zM5 17H3v-2h2v2zM9 5H7V3h2v2zm4 0h-2V3h2v2zm0 16h-2v-2h2v2zm-8-8H3v-2h2v2zm0 8.08C3.9 21.08 3 20 3 19h2v2.08z"></path>
+      </svg>
+      <span class="screenshot-tips-content">{{vars['editTip']}}</span>
+    </div>
+  </div>
+
+  <mat-dialog-actions class="dialog-actions" align="end">
+    <button mat-button (click)="dialogRef.close()" class="action-button">{{vars['cancelLabel']}}</button>
+    <button mat-button (click)="dialogRef.close(true)" class="submit-button action-button">{{vars['sendLabel']}}</button>
+  </mat-dialog-actions>
+</div>
+<div *ngIf="showToolbar" data-html2canvas-ignore="true">
+  <div class="toolbar-tips" *ngIf="showToolbarTips">
+    {{vars['drawRectTip']}}
+  </div>
+
+  <feedback-toolbar [drawColor]="drawColor" (manipulate)="manipulate($event)"></feedback-toolbar>
+</div>
+<div *ngFor="let rectangle of rectangles; index as index" >
+    <feedback-rectangle [rectangle]="rectangle" [noHover]="!showToolbar || isDrawingRect" (close)="closeRect(index)">
+    </feedback-rectangle>
+</div>
+<canvas id="draw-canvas" class="drawCanvas" [ngClass]="{'pointerCursor': !showToolbar}"></canvas>

@@ -1,0 +1,43 @@
+<div exclude-rect="true" class="toolbar">
+  <div class="move-toolbar" #toggleMove [matTooltip]="vars['moveToolbarTip']" [matTooltipDisabled]="disableToolbarTips">
+    <svg focusable="false" aria-label="Drag" fill="#BDBDBD" height="56" width="16"
+         viewBox="-2 2 12 12">
+      <circle cx="1.5" cy="1.5" r="1.5"></circle>
+      <circle cx="1.5" cy="7.5" r="1.5"></circle>
+      <circle cx="1.5" cy="13.5" r="1.5"></circle>
+      <circle cx="6.5" cy="1.5" r="1.5"></circle>
+      <circle cx="6.5" cy="7.5" r="1.5"></circle>
+      <circle cx="6.5" cy="13.5" r="1.5"></circle>
+    </svg>
+  </div>
+  <button #highlightBtn (click)="toggleHighlight()" [matTooltip]="vars['highlightTip']"
+          [matTooltipDisabled]="disableToolbarTips" class="highlight-toggle" [ngClass]="{'deepen-color': !isSwitch}">
+    <span class="toggle">
+      <svg focusable="false" aria-label="" viewBox="0 0 24 24" height="36" width="36"
+           fill="#ffd740">
+        <path d="M3 3h18v18H3z"></path>
+      </svg>
+
+      <svg focusable="false" aria-label="" fill="#757575" viewBox="0 0 24 24"
+           height="36" width="36" [ngClass]="{'toggle-decorator': !isSwitch}" *ngIf="!isSwitch">
+        <path
+          d="M21 17h-2.58l2.51 2.56c-.18.69-.73 1.26-1.41 1.44L17 18.5V21h-2v-6h6v2zM19 7h2v2h-2V7zm2-2h-2V3.08c1.1 0 2 .92 2 1.92zm-6-2h2v2h-2V3zm4 8h2v2h-2v-2zM9 21H7v-2h2v2zM5 9H3V7h2v2zm0-5.92V5H3c0-1 1-1.92 2-1.92zM5 17H3v-2h2v2zM9 5H7V3h2v2zm4 0h-2V3h2v2zm0 16h-2v-2h2v2zm-8-8H3v-2h2v2zm0 8.08C3.9 21.08 3 20 3 19h2v2.08z"></path>
+      </svg>
+    </span>
+  </button>
+  <button (click)="toggleHide()" [matTooltip]="vars['hideTip']" [matTooltipDisabled]="disableToolbarTips"
+          class="hide-toggle" [ngClass]="{'deepen-color': isSwitch}">
+    <span class="toggle">
+      <svg focusable="false" aria-label="" viewBox="0 0 24 24" height="36" width="36"
+           fill="#000">
+        <path d="M3 3h18v18H3z"></path>
+      </svg>
+      <svg focusable="false" aria-label="" fill="#757575" viewBox="0 0 24 24"
+           height="36" width="36" [ngClass]="{'toggle-decorator': isSwitch}" *ngIf="isSwitch">
+        <path
+          d="M21 17h-2.58l2.51 2.56c-.18.69-.73 1.26-1.41 1.44L17 18.5V21h-2v-6h6v2zM19 7h2v2h-2V7zm2-2h-2V3.08c1.1 0 2 .92 2 1.92zm-6-2h2v2h-2V3zm4 8h2v2h-2v-2zM9 21H7v-2h2v2zM5 9H3V7h2v2zm0-5.92V5H3c0-1 1-1.92 2-1.92zM5 17H3v-2h2v2zM9 5H7V3h2v2zm4 0h-2V3h2v2zm0 16h-2v-2h2v2zm-8-8H3v-2h2v2zm0 8.08C3.9 21.08 3 20 3 19h2v2.08z"></path>
+      </svg>
+    </span>
+  </button>
+  <button mat-button class="merge-button" (click)="done()">{{vars['editDoneLabel']}}</button>
+</div>

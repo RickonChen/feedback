@@ -1,0 +1,88 @@
+.toolbar {
+  align-items: center;
+  background-color: white;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.14) 0px 24px 38px 3px, rgba(0, 0, 0, 0.12) 0px 9px 46px 8px, rgba(0, 0, 0, 0.2) 0px 11px 15px -7px;
+  cursor: pointer;
+  display: -webkit-inline-flex;
+  flex-direction: row;
+  height: 56px;
+  min-width: 232px;
+  pointer-events: auto;
+  overflow: visible;
+  position: absolute;
+  margin: 0 auto;
+  width: 228px;
+  bottom: 0;
+  top: 25%;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.move-toolbar {
+  cursor: -webkit-grab;
+  height: 56px;
+  padding: 0px 12px;
+  position: relative;
+}
+
+.move-toolbar:active {
+  cursor: -webkit-grabbing;
+}
+
+.toggle {
+  display: inline-block;
+  position: relative;
+  height: 36px;
+  width: 36px;
+}
+
+.toggle-decorator {
+  left: 0px;
+  position: absolute;
+  top: 0px;
+}
+
+.highlight-toggle {
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-flex;
+  justify-content: center;
+  outline: none;
+  padding: 10px;
+  pointer-events: auto;
+  position: relative;
+  height: 56px;
+  width: 56px;
+}
+
+.deepen-color {
+  background-color: rgb(224, 224, 224) !important;
+}
+
+.hide-toggle {
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-flex;
+  justify-content: center;
+  outline: none;
+  padding: 10px;
+  pointer-events: auto;
+  position: relative;
+  height: 56px;
+  width: 56px;
+}
+
+.merge-button {
+  padding: 0 !important;
+  margin: 0 10px 0 10px !important;
+  min-width: 56px;
+  color: #4285f4;
+}
