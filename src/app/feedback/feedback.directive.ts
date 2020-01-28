@@ -24,6 +24,8 @@ export class FeedbackDirective implements OnInit {
   @Input() highlightTip = 'highlight issues';
   @Input() hideTip = 'hide sensitive info';
   @Input() editDoneLabel = 'DONE';
+  // Whether to allow cross-origin images to taint the canvas
+  @Input() allowTaint: boolean = false;
   @Output() public send = new EventEmitter<Partial<SendResultFeedback>>();
 
   public constructor(private dialogRef: MatDialog, private feedbackService: FeedbackInternalService, overlay: Overlay) {
@@ -41,7 +43,7 @@ export class FeedbackDirective implements OnInit {
   }
 
   public openFeedbackDialog() {
-    this.feedbackService.initScreenshotCanvas();
+    this.feedbackService.initScreenshotCanvas({ allowTaint : this.allowTaint});
     const dialogRef = this.dialogRef.open(FeedbackDialogComponent, {
       panelClass: 'feedbackDialog',
       backdropClass: 'dialogBackDrop',

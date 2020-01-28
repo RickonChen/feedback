@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import html2canvas from 'html2canvas';
-import {Subject, Observable} from 'rxjs';
-import {Feedback} from './entity/feedback'; // import Observable to solve build issue
+import { Subject, Observable } from 'rxjs';
+import { Feedback } from './entity/feedback'; // import Observable to solve build issue
 
 @Injectable()
 export class FeedbackInternalService {
@@ -18,7 +18,10 @@ export class FeedbackInternalService {
   public isDraggingToolbar$: Observable<boolean> = this.isDraggingToolbarSource.asObservable();
 
 
-  public initScreenshotCanvas() {
+  public initScreenshotCanvas(options: {
+    allowTaint?: boolean,
+    useCORS?: boolean
+  }) {
     const that = this;
     const body = document.body;
     html2canvas(body, {
@@ -27,7 +30,9 @@ export class FeedbackInternalService {
       height: document.documentElement.clientHeight,
       x: document.documentElement.scrollLeft,
       y: document.documentElement.scrollTop,
-      allowTaint : true
+      allowTaint: options.allowTaint || false,
+      useCORS: options.useCORS || false
+
     }).then(bodyCanvas => {
       this.screenshotCanvasSource.next(bodyCanvas);
     });
@@ -47,7 +52,7 @@ export class FeedbackInternalService {
 
   public getImgEle(canvas): HTMLElement {
     const img = canvas.toDataURL('image/png'),
-          imageEle = document.createElement('img');
+      imageEle = document.createElement('img');
     imageEle.setAttribute('src', img);
     Object.assign(imageEle.style, {
       position: 'absolute',
@@ -59,6 +64,7 @@ export class FeedbackInternalService {
       maxWidth: '100%',
       transform: 'translateY(-50%)'
     });
+    imageEle.crossOrigin = 'Anonymous';
     return imageEle;
   }
 
