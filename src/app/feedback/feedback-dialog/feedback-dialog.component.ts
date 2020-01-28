@@ -99,7 +99,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
       this.destroyCanvasListeners();
       this.showToolbar = false;
       this.detector.detectChanges();
-      this.feedbackService.initScreenshotCanvas();
+      this.feedbackService.initScreenshotCanvas({});
     } else {
       this.startDraw(manipulation);
     }
