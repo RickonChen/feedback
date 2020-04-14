@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import html2canvas from 'html2canvas';
 import { Subject, Observable } from 'rxjs';
-import { Feedback } from './entity/feedback'; // import Observable to solve build issue
 
 @Injectable()
 export class FeedbackInternalService {
@@ -10,9 +9,6 @@ export class FeedbackInternalService {
   public hiddenColor = 'black';
   private screenshotCanvasSource = new Subject<HTMLCanvasElement>();
   public screenshotCanvas$: Observable<HTMLCanvasElement> = this.screenshotCanvasSource.asObservable();
-
-  private feedbackSource = new Subject<Feedback>();
-  public feedback$: Observable<Feedback> = this.feedbackSource.asObservable();
 
   private isDraggingToolbarSource = new Subject<boolean>();
   public isDraggingToolbar$: Observable<boolean> = this.isDraggingToolbarSource.asObservable();
@@ -40,10 +36,6 @@ export class FeedbackInternalService {
 
   public setCanvas(canvas: HTMLCanvasElement): void {
     this.screenshotCanvasSource.next(canvas);
-  }
-
-  public setFeedback(feedback: Feedback): void {
-    this.feedbackSource.next(feedback);
   }
 
   public setIsDraggingToolbar(isDragging: boolean): void {

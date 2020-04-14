@@ -1,4 +1,4 @@
-import { Directive, HostListener, EventEmitter, Output, Input, OnInit } from '@angular/core';
+import { Directive, HostListener, EventEmitter, Output, Input, OnInit, Self } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { FeedbackDialogComponent } from './feedback-dialog/feedback-dialog.component';
 import { FeedbackInternalService } from './feedback.service';
@@ -10,7 +10,9 @@ export class SendResultFeedback extends Feedback {
   error?: string;
 }
 
-@Directive({ selector: '[feedback]' })
+@Directive({
+  selector: '[feedback]'
+})
 export class FeedbackDirective implements OnInit {
   private overlay: Overlay;
   @Input() title: string = 'Send feedback';
@@ -29,11 +31,6 @@ export class FeedbackDirective implements OnInit {
   @Output() public send = new EventEmitter<Partial<SendResultFeedback>>();
 
   public constructor(private dialogRef: MatDialog, private feedbackService: FeedbackInternalService, overlay: Overlay) {
-    this.feedbackService.feedback$.subscribe(
-      (feedback) => {
-        this.send.emit(feedback);
-      }
-    );
     this.overlay = overlay;
   }
 
@@ -43,7 +40,7 @@ export class FeedbackDirective implements OnInit {
   }
 
   public openFeedbackDialog() {
-    this.feedbackService.initScreenshotCanvas({ allowTaint : this.allowTaint});
+    this.feedbackService.initScreenshotCanvas({ allowTaint: this.allowTaint });
     const dialogRef = this.dialogRef.open(FeedbackDialogComponent, {
       panelClass: 'feedbackDialog',
       backdropClass: 'dialogBackDrop',
@@ -59,6 +56,8 @@ export class FeedbackDirective implements OnInit {
         this.send.emit({
           error: 'dialog_canceled'
         });
+      } else {
+        this.send.emit(result);
       }
     });
   }

@@ -15,6 +15,7 @@ import {
 } from '@angular/material';
 import {FeedbackInternalService} from './feedback.service';
 import {FeedbackDirective} from './feedback.directive';
+import { OverlayModule, OVERLAY_PROVIDERS } from '@angular/cdk/overlay';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {FeedbackDirective} from './feedback.directive';
     FeedbackDirective
   ],
   imports: [
+    OverlayModule,
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
@@ -32,10 +34,11 @@ import {FeedbackDirective} from './feedback.directive';
     CommonModule,
     FormsModule,
     MatCheckboxModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   exports: [
-    FeedbackDirective
+    FeedbackDirective,
+    OverlayModule
   ],
   entryComponents: [
     FeedbackDialogComponent

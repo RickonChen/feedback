@@ -30,6 +30,7 @@
   flex-grow: 1;
   height: 200px;
   position: relative;
+  width: 100%;
 }
 
 .description {
@@ -228,7 +229,7 @@
   }
 }
 
-.drawCanvas{
+.drawCanvas {
   position: absolute;
   top: 0;
   left: 0;
@@ -237,6 +238,6 @@
   cursor: crosshair;
 }
 
-.pointerCursor{
-  cursor: default!important;
+.pointerCursor {
+  cursor: default !important;
 }

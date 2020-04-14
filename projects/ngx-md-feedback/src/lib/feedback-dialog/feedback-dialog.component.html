@@ -32,7 +32,7 @@
 
   <mat-dialog-actions class="dialog-actions" align="end">
     <button mat-button (click)="dialogRef.close()" class="action-button">{{vars['cancelLabel']}}</button>
-    <button mat-button (click)="dialogRef.close(true)" class="submit-button action-button">{{vars['sendLabel']}}</button>
+    <button mat-button (click)="onSend()" class="submit-button action-button">{{vars['sendLabel']}}</button>
   </mat-dialog-actions>
 </div>
 <div *ngIf="showToolbar" data-html2canvas-ignore="true">

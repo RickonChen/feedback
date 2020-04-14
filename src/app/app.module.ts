@@ -1,18 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FeedbackModule } from './feedback';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material';
+import { NgxMdFeedbackModule } from 'projects/ngx-md-feedback/src/public_api';
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
     BrowserModule,
-    FeedbackModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    NgxMdFeedbackModule
   ],
   providers: [],
   bootstrap: [AppComponent]
