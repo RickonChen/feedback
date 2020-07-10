@@ -1,13 +1,17 @@
 import { from, fromEvent as observableFromEvent, Observable, Subscription } from 'rxjs';
 
 import { takeUntil, finalize, map, mergeMap, timeout, skipWhile, filter, scan, first } from 'rxjs/operators';
-import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, HostListener, Renderer2 } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, HostListener, Renderer2, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Feedback } from '../entity/feedback';
 import { FeedbackInternalService } from '../feedback.service';
 
 import { Rectangle } from '../entity/rectangle';
 import { element } from 'protractor';
+
+export interface FeedbackDialogData {
+  descriptionRequired: boolean;
+}
 
 @Component({
   selector: 'feedback-dialog',
@@ -38,13 +42,17 @@ export class FeedbackDialogComponent implements AfterViewInit {
   private autoDrawRect$: Subscription;
   public isDrawingRect: boolean = false;
 
+  public descriptionRequired: boolean = false;
+
   constructor(public dialogRef: MatDialogRef<FeedbackDialogComponent>,
-    private feedbackService: FeedbackInternalService,
-    private detector: ChangeDetectorRef,
-    private el: ElementRef) {
+              @Inject(MAT_DIALOG_DATA) public data: FeedbackDialogData,
+              private feedbackService: FeedbackInternalService,
+              private detector: ChangeDetectorRef,
+              private el: ElementRef) {
     this.feedback = new Feedback();
     this.feedback.description = '';
     this.vars = this.feedbackService.initialVariables;
+    this.descriptionRequired = this.data.descriptionRequired;
   }
 
   public ngAfterViewInit() {
@@ -62,7 +70,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
         this.addCanvasListeners();
       }
     });
-    
+
     this.feedbackService.showBackDrop();
   }
 
@@ -99,6 +107,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
       this.startDraw(manipulation);
     }
   }
+
   public onSend() {
     this.dialogRef.close(this.feedback);
   }
@@ -120,7 +129,9 @@ export class FeedbackDialogComponent implements AfterViewInit {
   }
 
   private appendScreenshot() {
-    if (this.screenshotParent) { this.screenshotParent.nativeElement.appendChild(this.screenshotEle); }
+    if (this.screenshotParent) {
+      this.screenshotParent.nativeElement.appendChild(this.screenshotEle);
+    }
   }
 
   private initBackgroundCanvas() {
@@ -195,13 +206,19 @@ export class FeedbackDialogComponent implements AfterViewInit {
   }
 
   private destroyCanvasListeners(): void {
-    if (this.manuallyDrawRect$) { this.manuallyDrawRect$.unsubscribe(); }
-    if (this.autoDrawRect$) { this.autoDrawRect$.unsubscribe(); }
+    if (this.manuallyDrawRect$) {
+      this.manuallyDrawRect$.unsubscribe();
+    }
+    if (this.autoDrawRect$) {
+      this.autoDrawRect$.unsubscribe();
+    }
   }
 
   private manuallyDrawRect(mouseDown: Observable<Event>, mouseMove: Observable<Event>, mouseUp: Observable<Event>): void {
     const mouseDrag = mouseDown.pipe(mergeMap((mouseDownEvent: MouseEvent) => {
-      if (this.showToolbarTips) { this.showToolbarTips = false; }
+      if (this.showToolbarTips) {
+        this.showToolbarTips = false;
+      }
       this.autoDrawRect$.unsubscribe();
       this.isDrawingRect = true;
 
@@ -221,7 +238,9 @@ export class FeedbackDialogComponent implements AfterViewInit {
           if (newRectangle.width === undefined || newRectangle.height === undefined ||
             newRectangle.width === 0 || newRectangle.height === 0) {
             const rect = this.drawTempCanvasRectangle(mouseDownEvent);
-            if (rect) { this.rectangles.push(rect); }
+            if (rect) {
+              this.rectangles.push(rect);
+            }
           } else {
             // drag to draw rectangle
             if (newRectangle.height < 0) {

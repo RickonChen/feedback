@@ -26,6 +26,7 @@ export class FeedbackDirective implements OnInit {
   @Input() highlightTip = 'highlight issues';
   @Input() hideTip = 'hide sensitive info';
   @Input() editDoneLabel = 'DONE';
+  @Input() descriptionRequired: boolean = false;
   // Whether to allow cross-origin images to taint the canvas
   @Input() allowTaint: boolean = false;
   @Output() public send = new EventEmitter<Partial<SendResultFeedback>>();
@@ -47,6 +48,9 @@ export class FeedbackDirective implements OnInit {
       disableClose: true,
       height: 'auto',
       width: 'auto',
+      data: {
+        descriptionRequired: this.descriptionRequired
+      },
       scrollStrategy: this.overlay.scrollStrategies.reposition()
     });
 
@@ -74,7 +78,7 @@ export class FeedbackDirective implements OnInit {
       drawRectTip: this.drawRectTip,
       highlightTip: this.highlightTip,
       hideTip: this.hideTip,
-      editDoneLabel: this.editDoneLabel
+      editDoneLabel: this.editDoneLabel,
     };
   }
 
