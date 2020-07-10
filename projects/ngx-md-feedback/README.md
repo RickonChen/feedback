@@ -43,6 +43,7 @@ easy to use the directive, just add it in a html tag, such as:
 | `hideTip`        | hide sensitive info                                                   |                                                                       |
 | `editDoneLabel`  | DONE                                                                  |                                                                       |
 | `allowTaint`     | FALSE                                                                 |  Whether to allow cross-origin images to taint the canvas             |
+| `descriptionRequired` | FALSE                                                            | Field description is required for enabling 'send' button              |
 
 ### method
 
