@@ -13,10 +13,13 @@
     "url" : "https://github.com/RickonChen/feedback.git"
   },
   "peerDependencies": {
-    "@angular/common": "^6.0.0 || ^7.0.0 || ^8.0.0",
-    "@angular/core": "^6.0.0 || ^7.0.0 || ^8.0.0",
-    "@angular/forms": "^6.0.0 || ^7.0.0 || ^8.0.0",
-    "@angular/material": "^6.0.0 || ^7.0.0 || ^8.0.0",
+    "@angular/common": "^8.0.0 || ^9.0.0 || ^10.0.0",
+    "@angular/core": "^8.0.0 || ^9.0.0 || ^10.0.0",
+    "@angular/forms": "^8.0.0 || ^9.0.0 || ^10.0.0",
+    "@angular/material": "^8.0.0 || ^9.0.0 || ^10.0.0",
     "html2canvas": "^1.0.0-rc.5"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
   }
 }

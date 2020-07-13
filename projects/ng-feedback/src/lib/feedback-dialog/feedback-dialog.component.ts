@@ -20,7 +20,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
   public screenshotEle: HTMLElement;
   public drawCanvas: HTMLCanvasElement;
   public showToolbarTips: boolean = true;
-  @ViewChild('screenshotParent', { static: false })
+  @ViewChild('screenshotParent')
   public screenshotParent: ElementRef;
   public drawColor: string = this.feedbackService.highlightedColor;
   public rectangles: Rectangle[] = [];

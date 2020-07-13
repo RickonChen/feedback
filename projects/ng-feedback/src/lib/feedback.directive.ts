@@ -1,6 +1,7 @@
 import { Directive, HostListener, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
 import { MatDialog } from '@angular/material/dialog';
+import { Feedback } from './entity/feedback';
 import { FeedbackDialogComponent } from './feedback-dialog/feedback-dialog.component';
 import { FeedbackService } from './feedback.service';
 
@@ -18,7 +19,7 @@ export class FeedbackDirective implements OnInit {
   @Input() highlightTip = 'highlight issues';
   @Input() hideTip = 'hide sensitive info';
   @Input() editDoneLabel = 'DONE';
-  @Output() public send = new EventEmitter<object>();
+  @Output() public send = new EventEmitter<Feedback>();
 
   public constructor(private dialogRef: MatDialog, private feedbackService: FeedbackService, overlay: Overlay) {
     this.feedbackService.feedback$.subscribe(
