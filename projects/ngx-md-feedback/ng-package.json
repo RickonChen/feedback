@@ -3,5 +3,8 @@
   "dest": "../../dist/ngx-md-feedback",
   "lib": {
     "entryFile": "src/public_api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": [
+    "."
+  ]
 }

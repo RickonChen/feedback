@@ -1,6 +1,6 @@
 {
   "name": "ngx-md-feedback",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "author": {
     "email": "workfel@gmail.com",
     "name": "Johan pujol",
@@ -21,6 +21,11 @@
     "@angular/forms": "^6.1.10",
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/material": "^6.4.7",
+    "@angular/cdk": "^6.4.7",
+    "html2canvas": "^1.0.0-rc.5"
+  },
+  "dependencies": {
     "@angular/material": "^6.4.7",
     "@angular/cdk": "^6.4.7",
     "html2canvas": "^1.0.0-rc.5"
