@@ -1,4 +1,4 @@
-import { Directive, HostListener, EventEmitter, Output, Input, OnInit, Self } from '@angular/core';
+import { Directive, HostListener, EventEmitter, Output, Input, OnInit, Self, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { FeedbackDialogComponent } from './feedback-dialog/feedback-dialog.component';
 import { FeedbackInternalService } from './feedback.service';
@@ -13,7 +13,7 @@ export class SendResultFeedback extends Feedback {
 @Directive({
   selector: '[feedback]'
 })
-export class FeedbackDirective implements OnInit {
+export class FeedbackDirective implements OnInit, OnChanges {
   private overlay: Overlay;
   @Input() title: string = 'Send feedback';
   @Input() placeholder: string = 'Describe your issue or share your ideas';
@@ -27,6 +27,7 @@ export class FeedbackDirective implements OnInit {
   @Input() hideTip = 'hide sensitive info';
   @Input() editDoneLabel = 'DONE';
   @Input() descriptionRequired: boolean = false;
+  @Input() description: string;
   // Whether to allow cross-origin images to taint the canvas
   @Input() allowTaint: boolean = false;
   @Output() public send = new EventEmitter<Partial<SendResultFeedback>>();
@@ -79,7 +80,14 @@ export class FeedbackDirective implements OnInit {
       highlightTip: this.highlightTip,
       hideTip: this.hideTip,
       editDoneLabel: this.editDoneLabel,
+      description: this.description
     };
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['description']) {
+      this.feedbackService.initialVariables['description'] = changes['description'].currentValue;
+    }
   }
 
 }

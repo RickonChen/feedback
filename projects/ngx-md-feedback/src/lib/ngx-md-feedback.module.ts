@@ -1,20 +1,20 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {FeedbackDialogComponent} from './feedback-dialog/feedback-dialog.component';
-import {FeedbackToolbarComponent} from './feedback-toolbar/feedback-toolbar.component';
-import {FeedbackRectangleComponent} from './feedback-rectangle/feedback-rectangle.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { FeedbackDialogComponent } from './feedback-dialog/feedback-dialog.component';
+import { FeedbackToolbarComponent } from './feedback-toolbar/feedback-toolbar.component';
+import { FeedbackRectangleComponent } from './feedback-rectangle/feedback-rectangle.component';
 import {
-  MatDialogModule,
   MatButtonModule,
   MatIconModule,
   MatInputModule,
   MatTooltipModule,
   MatCheckboxModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatDialogModule, MatDialogRef
 } from '@angular/material';
-import {FeedbackInternalService} from './feedback.service';
-import {FeedbackDirective} from './feedback.directive';
+import { FeedbackInternalService } from './feedback.service';
+import { FeedbackDirective } from './feedback.directive';
 
 @NgModule({
   declarations: [
@@ -35,13 +35,15 @@ import {FeedbackDirective} from './feedback.directive';
     MatProgressSpinnerModule
   ],
   exports: [
-    FeedbackDirective
+    FeedbackDirective,
+    FeedbackDialogComponent
   ],
   entryComponents: [
     FeedbackDialogComponent
   ],
   providers: [
-    FeedbackInternalService
+    FeedbackInternalService,
+    { provide: MatDialogRef, useValue: {} }
   ]
 })
 export class NgxMdFeedbackModule {

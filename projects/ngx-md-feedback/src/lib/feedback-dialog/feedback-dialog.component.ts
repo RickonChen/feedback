@@ -1,13 +1,12 @@
-import { from, fromEvent as observableFromEvent, Observable, Subscription } from 'rxjs';
+import { fromEvent as observableFromEvent, Observable, Subscription } from 'rxjs';
 
-import { takeUntil, finalize, map, mergeMap, timeout, skipWhile, filter, scan, first } from 'rxjs/operators';
-import { Component, AfterViewInit, ViewChild, ElementRef, ChangeDetectorRef, HostListener, Renderer2, Inject } from '@angular/core';
+import { finalize, map, mergeMap, takeUntil } from 'rxjs/operators';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Feedback } from '../entity/feedback';
 import { FeedbackInternalService } from '../feedback.service';
 
 import { Rectangle } from '../entity/rectangle';
-import { element } from 'protractor';
 
 export interface FeedbackDialogData {
   descriptionRequired: boolean;
@@ -52,6 +51,9 @@ export class FeedbackDialogComponent implements AfterViewInit {
     this.feedback = new Feedback();
     this.feedback.description = '';
     this.vars = this.feedbackService.initialVariables;
+    if (this.vars['description']) {
+      this.feedback.description = this.vars['description'];
+    }
     this.descriptionRequired = this.data.descriptionRequired;
   }
 

@@ -8,11 +8,19 @@
     <div class="description-tips">
       <div *ngIf="feedback.description==''">{{vars['placeholder']}}</div>
     </div>
+
+    <div *ngIf="vars['description'];else defaultTplDescription" class="description-field">
+      <div contenteditable="false" [innerHTML]="vars['description']" class="description-field-content-editable">
+
+      </div>
+    </div>
+    <ng-template #defaultTplDescription>
     <textarea
       autofocus
       class="description"
       [(ngModel)]="feedback.description"
     ></textarea>
+    </ng-template>
   </div>
   <div class="screenshot-checkbox">
     <mat-checkbox [(ngModel)]="includeScreenshot"

@@ -70,6 +70,16 @@
   right: 0px;
 }
 
+.description-field {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.description-field-content-editable {
+  padding: 16px;
+}
+
 .screenshot-checkbox {
   padding: 0 16px 0 16px;
   background-color: #f8f8f8;
