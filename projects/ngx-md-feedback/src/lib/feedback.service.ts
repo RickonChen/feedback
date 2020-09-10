@@ -18,20 +18,22 @@ export class FeedbackInternalService {
     allowTaint?: boolean,
     useCORS?: boolean
   }) {
-    const that = this;
-    const body = document.body;
-    html2canvas(body, {
-      logging: false,
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight,
-      x: document.documentElement.scrollLeft,
-      y: document.documentElement.scrollTop,
-      allowTaint: options.allowTaint || false,
-      useCORS: options.useCORS || false
+    setTimeout(() => {
+      const body = document.body;
+      html2canvas(body, {
+        logging: false,
+        width: document.documentElement.clientWidth,
+        height: document.documentElement.clientHeight,
+        x: document.documentElement.scrollLeft,
+        y: document.documentElement.scrollTop,
+        allowTaint: options.allowTaint || false,
+        useCORS: options.useCORS || false
 
-    }).then(bodyCanvas => {
-      this.screenshotCanvasSource.next(bodyCanvas);
-    });
+      }).then(bodyCanvas => {
+        this.screenshotCanvasSource.next(bodyCanvas);
+      });
+    }, 100);
+
   }
 
   public setCanvas(canvas: HTMLCanvasElement): void {
