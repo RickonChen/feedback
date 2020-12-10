@@ -17,7 +17,7 @@ export class FeedbackToolbarComponent implements AfterViewInit, OnChanges {
   @Output()
   public manipulate = new EventEmitter<string>();
   public disableToolbarTips = false;
-  @ViewChild('toggleMove')
+  @ViewChild('toggleMove', { static: true })
   private toggleMoveBtn: ElementRef;
   public isSwitch = false;
   public isDragging = false;

@@ -2,7 +2,7 @@ import { fromEvent as observableFromEvent, Observable, Subscription } from 'rxjs
 
 import { finalize, map, mergeMap, takeUntil } from 'rxjs/operators';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Inject, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Feedback } from '../entity/feedback';
 import { FeedbackInternalService } from '../feedback.service';
 
@@ -27,7 +27,7 @@ export class FeedbackDialogComponent implements AfterViewInit {
   public screenshotEle: HTMLElement;
   public drawCanvas: HTMLCanvasElement;
   public showToolbarTips: boolean = true;
-  @ViewChild('screenshotParent')
+  @ViewChild('screenshotParent', { static: false })
   public screenshotParent: ElementRef;
   public drawColor: string = this.feedbackService.highlightedColor;
   public rectangles: Rectangle[] = [];
