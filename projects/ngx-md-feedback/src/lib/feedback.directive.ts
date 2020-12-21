@@ -1,5 +1,5 @@
 import { Directive, HostListener, EventEmitter, Output, Input, OnInit, Self, OnChanges, SimpleChanges } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { FeedbackDialogComponent } from './feedback-dialog/feedback-dialog.component';
 import { FeedbackInternalService } from './feedback.service';
 import { Overlay } from '@angular/cdk/overlay';
