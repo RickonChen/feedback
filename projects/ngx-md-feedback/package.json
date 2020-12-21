@@ -1,11 +1,18 @@
 {
-  "name": "ngx-md-feedback",
+  "name": "@digikare/ngx-md-feedback",
   "version": "2.0.0",
   "author": {
     "email": "workfel@gmail.com",
     "name": "Johan pujol",
     "url": "https://github.com/workfel"
   },
+  "contributors": [
+    {
+      "email": "pkhim@digikare.com",
+      "name": "Tieu Philippe KHIM",
+      "url": "https://github.com/spike008t"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/digikare/feedback"
