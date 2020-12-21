@@ -7,8 +7,10 @@
 
 ### Prerequisites
 make sure your project:
-* is an angular(version >= 6.0.0) project
+* is an angular(version >= 8.0.0) project
 * has set up [angular material](https://github.com/angular/material2/blob/master/guides/getting-started.md)
+
+For angular >= 6.0.0 and < 8.0.0 see branch stable/1.0
 
 #### How to use it in your project
 > download it from npm
@@ -54,8 +56,8 @@ send(feedback)
 it is an output of the directive, the usage is:
 
 ```
-<button 
-  feedback 
+<button
+  feedback
   (send)="onSend($event)">feedback
 </button>
 ```
