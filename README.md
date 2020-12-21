@@ -16,12 +16,12 @@ For angular >= 6.0.0 and < 8.0.0 see branch stable/1.0
 > download it from npm
 
 ```bash
-npm install ngx-md-feedback --save
+npm install @digikare/ngx-md-feedback --save
 ```
 
 use the feedback module in your project, at any module, you just need to imports into your module:
 ```es6
-import { FeedbackModule } from 'ngx-md-feedback'
+import { FeedbackModule } from '@digikare/ngx-md-feedback'
 ```
 
 easy to use the directive, just add it in a html tag, such as:
