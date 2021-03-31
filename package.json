@@ -14,6 +14,13 @@
     "name": "Johan pujol",
     "url": "https://github.com/workfel"
   },
+  "contributors": [
+    {
+      "email": "pkhim@digikare.com",
+      "name": "Tieu Philippe KHIM",
+      "url": "https://github.com/spike008t"
+    }
+  ],
   "keywords": [
     "angular",
     "feedback"
@@ -31,9 +38,11 @@
     "@angular/platform-browser": "^8.2.14",
     "@angular/platform-browser-dynamic": "^8.2.14",
     "@angular/router": "^8.2.14",
+    "classlist.js": "^1.1.20150312",
     "core-js": "^2.4.1",
     "html2canvas": "^1.0.0-rc.7",
     "rxjs": "^6.3.3",
+    "web-animations-js": "^2.3.2",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
