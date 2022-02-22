@@ -21,14 +21,14 @@
 }
 
 .move-toolbar {
-  cursor: -webkit-grab;
+  cursor: grab;
   height: 56px;
   padding: 0px 12px;
   position: relative;
 }
 
 .move-toolbar:active {
-  cursor: -webkit-grabbing;
+  cursor: grabbing;
 }
 
 .toggle {
