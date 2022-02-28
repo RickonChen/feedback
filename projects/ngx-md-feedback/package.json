@@ -1,0 +1,38 @@
+{
+  "name": "@digikare/ngx-md-feedback",
+  "version": "2.2.0",
+  "author": {
+    "email": "workfel@gmail.com",
+    "name": "Johan pujol",
+    "url": "https://github.com/workfel"
+  },
+  "contributors": [
+    {
+      "email": "pkhim@digikare.com",
+      "name": "Tieu Philippe KHIM",
+      "url": "https://github.com/spike008t"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/digikare/feedback"
+  },
+  "keywords": [
+    "angular",
+    "feedback"
+  ],
+  "license": "MIT",
+  "description": "An angular directive for sending feedback",
+  "peerDependencies": {
+    "@angular/common": ">=13.0.0",
+    "@angular/core": ">=13.0.0",
+    "@angular/cdk": ">=13.0.0",
+    "@angular/material": ">=13.0.0",
+    "@angular/platform-browser": ">=13.0.0",
+    "@angular/platform-browser-dynamic": ">=13.0.0"
+  },
+  "dependencies": {
+    "html2canvas": "^1.4.1",
+    "tslib": "^2.3.1"
+  }
+}

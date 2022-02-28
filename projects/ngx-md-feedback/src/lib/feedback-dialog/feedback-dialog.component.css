@@ -30,6 +30,7 @@
   flex-grow: 1;
   height: 200px;
   position: relative;
+  width: 100%;
 }
 
 .description {
@@ -67,6 +68,16 @@
   position: absolute;
   padding: 18px 16px 0px;
   right: 0px;
+}
+
+.description-field {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.description-field-content-editable {
+  padding: 16px;
 }
 
 .screenshot-checkbox {
@@ -228,7 +239,7 @@
   }
 }
 
-.drawCanvas{
+.drawCanvas {
   position: absolute;
   top: 0;
   left: 0;
@@ -237,6 +248,6 @@
   cursor: crosshair;
 }
 
-.pointerCursor{
-  cursor: default!important;
+.pointerCursor {
+  cursor: default !important;
 }

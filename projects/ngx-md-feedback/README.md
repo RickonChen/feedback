@@ -7,21 +7,19 @@
 
 ### Prerequisites
 make sure your project:
-* is an angular(version >= 13) project
+* is an angular(version >= 6.0.0) project
 * has set up [angular material](https://github.com/angular/material2/blob/master/guides/getting-started.md)
-
-For angular >= 13 see branch stable/1.0
 
 #### How to use it in your project
 > download it from npm
 
 ```bash
-npm install @digikare/ngx-md-feedback --save
+npm install ngx-md-feedback --save
 ```
 
 use the feedback module in your project, at any module, you just need to imports into your module:
 ```es6
-import { FeedbackModule } from '@digikare/ngx-md-feedback'
+import { NgxMdFeedbackModule } from 'ngx-md-feedback'
 ```
 
 easy to use the directive, just add it in a html tag, such as:
@@ -46,6 +44,7 @@ easy to use the directive, just add it in a html tag, such as:
 | `editDoneLabel`  | DONE                                                                  |                                                                       |
 | `allowTaint`     | FALSE                                                                 |  Whether to allow cross-origin images to taint the canvas             |
 | `descriptionRequired` | FALSE                                                            | Field description is required for enabling 'send' button              |
+| `description` |                                                             | Set the field description              |
 
 ### method
 
@@ -56,8 +55,8 @@ send(feedback)
 it is an output of the directive, the usage is:
 
 ```
-<button
-  feedback
+<button 
+  feedback 
   (send)="onSend($event)">feedback
 </button>
 ```
@@ -85,7 +84,7 @@ Cancel feedback
 
 
 ### Getting started with this repo
-**Make sure you have Node version >= 12.0 and NPM >= 6**
+**Make sure you have Node version >= 8.0 and NPM >= 5**
 > Clone/Download the repo then edit feedback library inside [`/src/app/feedback`](/src/app/feedback)
 
 ```bash

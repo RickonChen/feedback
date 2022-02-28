@@ -8,18 +8,27 @@
     <div class="description-tips">
       <div *ngIf="feedback.description==''">{{vars['placeholder']}}</div>
     </div>
+
+    <div *ngIf="vars['description'];else defaultTplDescription" class="description-field">
+      <div contenteditable="false" [innerHTML]="vars['description']" class="description-field-content-editable">
+
+      </div>
+    </div>
+    <ng-template #defaultTplDescription>
     <textarea
       autofocus
       class="description"
       [(ngModel)]="feedback.description"
     ></textarea>
+    </ng-template>
   </div>
   <div class="screenshot-checkbox">
-    <mat-checkbox [(ngModel)]="includeScreenshot" (change)="isIncludeScreenshot()">{{vars['checkboxLabel']}}</mat-checkbox>
+    <mat-checkbox [(ngModel)]="includeScreenshot"
+                  (change)="isIncludeScreenshot()">{{vars['checkboxLabel']}}</mat-checkbox>
   </div>
 
   <div #screenshotParent class="screenshot-content" (click)="expandDrawingBoard()" *ngIf="includeScreenshot">
-    <mat-spinner class="loading" [diameter]="30" ></mat-spinner>
+    <mat-spinner class="loading" [diameter]="30"></mat-spinner>
     <div></div>
     <div class="screenshot-tips" *ngIf="!showSpinner">
       <svg focusable="false" aria-label="" viewBox="0 0 24 24">
@@ -32,7 +41,8 @@
 
   <mat-dialog-actions class="dialog-actions" align="end">
     <button mat-button (click)="dialogRef.close()" class="action-button">{{vars['cancelLabel']}}</button>
-    <button mat-button (click)="dialogRef.close(true)" class="submit-button action-button">{{vars['sendLabel']}}</button>
+    <button mat-button (click)="onSend()" [disabled]="descriptionRequired && feedback.description === '' "
+            class="submit-button action-button">{{vars['sendLabel']}}</button>
   </mat-dialog-actions>
 </div>
 <div *ngIf="showToolbar" data-html2canvas-ignore="true">
@@ -42,8 +52,8 @@
 
   <feedback-toolbar [drawColor]="drawColor" (manipulate)="manipulate($event)"></feedback-toolbar>
 </div>
-<div *ngFor="let rectangle of rectangles; index as index" >
-    <feedback-rectangle [rectangle]="rectangle" [noHover]="!showToolbar || isDrawingRect" (close)="closeRect(index)">
-    </feedback-rectangle>
+<div *ngFor="let rectangle of rectangles; index as index">
+  <feedback-rectangle [rectangle]="rectangle" [noHover]="!showToolbar || isDrawingRect" (close)="closeRect(index)">
+  </feedback-rectangle>
 </div>
 <canvas id="draw-canvas" class="drawCanvas" [ngClass]="{'pointerCursor': !showToolbar}"></canvas>

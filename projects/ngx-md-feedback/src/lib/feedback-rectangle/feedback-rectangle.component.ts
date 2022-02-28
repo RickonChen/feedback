@@ -1,6 +1,6 @@
 import {Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
 import {Rectangle} from '../entity/rectangle';
-import {FeedbackService} from '../feedback.service';
+import {FeedbackInternalService} from '../feedback.service';
 
 @Component({
   selector: 'feedback-rectangle',
@@ -17,7 +17,7 @@ export class FeedbackRectangleComponent {
   public close = new EventEmitter<boolean>();
   public showCloseTag: boolean = false;
 
-  constructor(public feedbackService: FeedbackService) {
+  constructor(public feedbackService: FeedbackInternalService) {
   }
 
   @HostListener('mouseenter')

@@ -2,7 +2,7 @@ import {fromEvent as observableFromEvent} from 'rxjs';
 
 import {takeUntil, finalize, map, mergeMap} from 'rxjs/operators';
 import {Component, ElementRef, Input, Output, EventEmitter, AfterViewInit, ViewChild, OnChanges} from '@angular/core';
-import {FeedbackService} from '../feedback.service';
+import {FeedbackInternalService} from '../feedback.service';
 
 
 @Component({
@@ -17,13 +17,13 @@ export class FeedbackToolbarComponent implements AfterViewInit, OnChanges {
   @Output()
   public manipulate = new EventEmitter<string>();
   public disableToolbarTips = false;
-  @ViewChild('toggleMove')
+  @ViewChild('toggleMove', { static: true })
   private toggleMoveBtn: ElementRef;
   public isSwitch = false;
   public isDragging = false;
   public vars: object = {};
 
-  constructor(public el: ElementRef, private feedbackService: FeedbackService) {
+  constructor(public el: ElementRef, private feedbackService: FeedbackInternalService) {
     this.vars = feedbackService.initialVariables;
   }
 
