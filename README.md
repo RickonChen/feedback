@@ -7,10 +7,10 @@
 
 ### Prerequisites
 make sure your project:
-* is an angular(version >= 8.0.0) project
+* is an angular(version >= 13) project
 * has set up [angular material](https://github.com/angular/material2/blob/master/guides/getting-started.md)
 
-For angular >= 6.0.0 and < 8.0.0 see branch stable/1.0
+For angular >= 13 see branch stable/1.0
 
 #### How to use it in your project
 > download it from npm
@@ -85,7 +85,7 @@ Cancel feedback
 
 
 ### Getting started with this repo
-**Make sure you have Node version >= 8.0 and NPM >= 5**
+**Make sure you have Node version >= 12.0 and NPM >= 6**
 > Clone/Download the repo then edit feedback library inside [`/src/app/feedback`](/src/app/feedback)
 
 ```bash

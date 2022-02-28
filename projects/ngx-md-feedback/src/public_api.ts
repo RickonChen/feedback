@@ -4,4 +4,5 @@
 
 export * from './lib/feedback.directive';
 export * from './lib/feedback.service';
+export * from './lib/feedback-dialog/feedback-dialog.component';
 export * from './lib/ngx-md-feedback.module';
